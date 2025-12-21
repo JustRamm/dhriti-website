@@ -1129,7 +1129,7 @@ function App() {
 
         {/* FAQ Section */}
         <section id="faq" className="py-20 md:py-32 bg-white" >
-          <div className="container mx-auto px-6 max-w-4xl">
+          <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
