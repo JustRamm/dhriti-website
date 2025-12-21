@@ -29,6 +29,32 @@ import {
 
 function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const difference = +new Date("2026-02-14") - +new Date();
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        });
+      }
+    };
+
+    const timer = setInterval(calculateTimeLeft, 1000);
+    calculateTimeLeft();
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -207,8 +233,36 @@ function App() {
 
               <div className="flex items-center justify-center gap-3 text-white/90 text-xl md:text-2xl mt-8">
                 <Sparkles className="w-6 h-6 text-[#D4AF37]" />
-                <span>February 2026</span>
+                <span>February 14, 2026</span>
                 <Sparkles className="w-6 h-6 text-[#D4AF37]" />
+              </div>
+
+              {/* Countdown Timer */}
+              <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-8">
+                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
+                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
+                    {timeLeft.days}
+                  </span>
+                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Days</span>
+                </div>
+                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
+                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
+                    {timeLeft.hours}
+                  </span>
+                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Hours</span>
+                </div>
+                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
+                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
+                    {timeLeft.minutes}
+                  </span>
+                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Mins</span>
+                </div>
+                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
+                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
+                    {timeLeft.seconds}
+                  </span>
+                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Secs</span>
+                </div>
               </div>
 
               <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mt-6">
