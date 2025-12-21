@@ -15,10 +15,10 @@ import {
   __toESM
 } from "./chunk-G3PMV62Z.js";
 
-// node_modules/@radix-ui/react-separator/dist/index.mjs
+// node_modules/@radix-ui/react-visually-hidden/dist/index.mjs
 var React2 = __toESM(require_react(), 1);
 
-// node_modules/@radix-ui/react-separator/node_modules/@radix-ui/react-primitive/dist/index.mjs
+// node_modules/@radix-ui/react-visually-hidden/node_modules/@radix-ui/react-primitive/dist/index.mjs
 var React = __toESM(require_react(), 1);
 var ReactDOM = __toESM(require_react_dom(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -55,33 +55,39 @@ var Primitive = NODES.reduce((primitive, node) => {
   return { ...primitive, [node]: Node };
 }, {});
 
-// node_modules/@radix-ui/react-separator/dist/index.mjs
+// node_modules/@radix-ui/react-visually-hidden/dist/index.mjs
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-var NAME = "Separator";
-var DEFAULT_ORIENTATION = "horizontal";
-var ORIENTATIONS = ["horizontal", "vertical"];
-var Separator = React2.forwardRef((props, forwardedRef) => {
-  const { decorative, orientation: orientationProp = DEFAULT_ORIENTATION, ...domProps } = props;
-  const orientation = isValidOrientation(orientationProp) ? orientationProp : DEFAULT_ORIENTATION;
-  const ariaOrientation = orientation === "vertical" ? orientation : void 0;
-  const semanticProps = decorative ? { role: "none" } : { "aria-orientation": ariaOrientation, role: "separator" };
-  return (0, import_jsx_runtime2.jsx)(
-    Primitive.div,
-    {
-      "data-orientation": orientation,
-      ...semanticProps,
-      ...domProps,
-      ref: forwardedRef
-    }
-  );
+var VISUALLY_HIDDEN_STYLES = Object.freeze({
+  // See: https://github.com/twbs/bootstrap/blob/main/scss/mixins/_visually-hidden.scss
+  position: "absolute",
+  border: 0,
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  wordWrap: "normal"
 });
-Separator.displayName = NAME;
-function isValidOrientation(orientation) {
-  return ORIENTATIONS.includes(orientation);
-}
-var Root = Separator;
+var NAME = "VisuallyHidden";
+var VisuallyHidden = React2.forwardRef(
+  (props, forwardedRef) => {
+    return (0, import_jsx_runtime2.jsx)(
+      Primitive.span,
+      {
+        ...props,
+        ref: forwardedRef,
+        style: { ...VISUALLY_HIDDEN_STYLES, ...props.style }
+      }
+    );
+  }
+);
+VisuallyHidden.displayName = NAME;
+var Root = VisuallyHidden;
 export {
   Root,
-  Separator
+  VISUALLY_HIDDEN_STYLES,
+  VisuallyHidden
 };
-//# sourceMappingURL=@radix-ui_react-separator.js.map
+//# sourceMappingURL=@radix-ui_react-visually-hidden.js.map

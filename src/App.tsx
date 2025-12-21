@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -24,7 +24,11 @@ import {
   ArrowUp,
   Quote,
   Menu,
-  MapPin
+  MapPin,
+  Home,
+  Info,
+  Mic,
+  Image
 } from "lucide-react";
 
 function App() {
@@ -35,6 +39,21 @@ function App() {
     minutes: 0,
     seconds: 0
   });
+
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]); // Moves down
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]); // Moves up
+  const rotate = useTransform(scrollY, [0, 1000], [0, 360]); // Rotates
+
+  const venueRef = useRef(null);
+  const { scrollYProgress: venueScrollProgress } = useScroll({
+    target: venueRef,
+    offset: ["start end", "center center"]
+  });
+
+  const mapRotateX = useTransform(venueScrollProgress, [0, 1], [60, 0]);
+  const mapScale = useTransform(venueScrollProgress, [0, 1], [0.8, 1]);
+  const mapOpacity = useTransform(venueScrollProgress, [0, 0.8], [0, 1]);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -101,15 +120,70 @@ function App() {
                     <Menu className="w-6 h-6" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent className="bg-[#800020] border-l border-[#D4AF37]/20">
-                  <div className="flex flex-col gap-6 mt-10">
-                    <a href="#home" className="text-xl text-white font-medium hover:text-[#D4AF37]">Home</a>
-                    <a href="#why" className="text-xl text-white font-medium hover:text-[#D4AF37]">About</a>
-                    <a href="#activities" className="text-xl text-white font-medium hover:text-[#D4AF37]">Activities</a>
-                    <a href="#speakers" className="text-xl text-white font-medium hover:text-[#D4AF37]">Speakers</a>
-                    <a href="#venue" className="text-xl text-white font-medium hover:text-[#D4AF37]">Venue</a>
-                    <a href="#gallery" className="text-xl text-white font-medium hover:text-[#D4AF37]">Gallery</a>
-                    <a href="#partnership" className="text-xl text-white font-medium hover:text-[#D4AF37]">Partners</a>
+                <SheetContent side="right" className="bg-gradient-to-b from-[#800020] to-[#4a0013] border-l border-[#D4AF37]/30 text-white p-0">
+                  <div className="flex flex-col h-full">
+                    {/* Menu Header */}
+                    <div className="p-6 border-b border-[#D4AF37]/20 bg-black/10">
+                      <div className="flex items-center gap-3">
+                        <img src="/logo.jpeg" alt="Logo" className="w-10 h-10 rounded-full border border-[#D4AF37]" />
+                        <div>
+                          <h2 className="font-bold text-lg tracking-wider text-white">DHRITI</h2>
+                          <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest">Elevate Yourself</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Menu Links */}
+                    <div className="flex-1 overflow-y-auto py-4">
+                      <nav className="flex flex-col">
+                        <a href="#home" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <Home className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">Home</span>
+                        </a>
+                        <a href="#why" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <Info className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">About</span>
+                        </a>
+                        <a href="#activities" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <Gamepad2 className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">Activities</span>
+                        </a>
+                        <a href="#speakers" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <Mic className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">Speakers</span>
+                        </a>
+                        <a href="#venue" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <MapPin className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">Venue</span>
+                        </a>
+                        <a href="#gallery" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <Image className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">Gallery</span>
+                        </a>
+                        <a href="#partnership" className="flex items-center gap-4 px-6 py-4 text-white/90 hover:bg-white/10 hover:text-[#D4AF37] transition-all border-b border-[#D4AF37]/10 group">
+                          <Handshake className="w-5 h-5 text-[#D4AF37]/70 group-hover:text-[#D4AF37]" />
+                          <span className="font-medium text-lg">Partners</span>
+                        </a>
+                      </nav>
+                    </div>
+
+                    {/* Menu Footer */}
+                    <div className="p-6 border-t border-[#D4AF37]/20 bg-black/10">
+                      <div className="flex justify-center gap-6 mb-4">
+                        <a href="#" className="p-2 rounded-full bg-white/5 hover:bg-[#D4AF37] hover:text-[#800020] transition-colors">
+                          <Instagram className="w-5 h-5" />
+                        </a>
+                        <a href="#" className="p-2 rounded-full bg-white/5 hover:bg-[#D4AF37] hover:text-[#800020] transition-colors">
+                          <Linkedin className="w-5 h-5" />
+                        </a>
+                        <a href="#" className="p-2 rounded-full bg-white/5 hover:bg-[#D4AF37] hover:text-[#800020] transition-colors">
+                          <Mail className="w-5 h-5" />
+                        </a>
+                      </div>
+                      <p className="text-center text-[#D4AF37]/60 text-xs tracking-wider">
+                        FEBRUARY 14, 2026
+                      </p>
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>
@@ -122,39 +196,66 @@ function App() {
         {/* Hero Section */}
         <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#800020] via-[#A0153E] to-[#5C0120]">
           {/* Kerala Pattern Background */}
-          <div className="absolute inset-0 opacity-10">
+          <motion.div className="absolute inset-0 opacity-10" style={{ y: y1 }}>
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id="kerala-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
                   <circle cx="50" cy="50" r="2" fill="#D4AF37" />
                   <path d="M50 30 L60 50 L50 70 L40 50 Z" fill="#D4AF37" opacity="0.3" />
                 </pattern>
+                {/* Mandala Pattern */}
+                <pattern id="mandala-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+                  <circle cx="100" cy="100" r="40" stroke="#D4AF37" strokeWidth="1" fill="none" opacity="0.5" />
+                  <path d="M100 60 L110 80 L100 90 L90 80 Z" fill="#D4AF37" opacity="0.4" />
+                  <path d="M100 140 L110 120 L100 110 L90 120 Z" fill="#D4AF37" opacity="0.4" />
+                  <path d="M60 100 L80 110 L90 100 L80 90 Z" fill="#D4AF37" opacity="0.4" />
+                  <path d="M140 100 L120 110 L110 100 L120 90 Z" fill="#D4AF37" opacity="0.4" />
+                </pattern>
               </defs>
               <rect width="100%" height="100%" fill="url(#kerala-pattern)" />
             </svg>
-          </div>
+          </motion.div>
+
+          {/* Floating Mandalas Layer - Slow Move - Desktop Only */}
+          <motion.div className="absolute inset-0 opacity-5 hidden md:block" style={{ y: useTransform(scrollY, [0, 1000], [0, -300]) }}>
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="url(#mandala-pattern)" />
+            </svg>
+          </motion.div>
+
+          {/* Elephant Silhouette - Parallax Layer */}
+          <motion.div
+            className="absolute top-1/4 left-10 opacity-10 hidden xl:block"
+            style={{ x: useTransform(scrollY, [0, 1000], [0, 100]) }}
+          >
+            <svg width="150" height="100" viewBox="0 0 150 100" fill="#D4AF37">
+              <path d="M120,70 Q110,60 100,60 L80,60 Q60,60 50,70 Q40,80 40,90 L40,95 L50,95 L50,90 Q50,85 60,85 L70,85 L70,95 L80,95 L80,75 L100,75 Q110,75 115,80 L120,85 Z" opacity="0.8" />
+              <circle cx="115" cy="65" r="2" fill="white" />
+              <path d="M115,70 Q120,80 110,90" stroke="#D4AF37" strokeWidth="2" fill="none" />
+            </svg>
+          </motion.div>
 
           {/* Decorative Kerala Lamps */}
-          <div className="absolute top-24 left-10 opacity-20 animate-float hidden lg:block">
+          <motion.div className="absolute top-24 left-10 opacity-20 hidden lg:block" style={{ y: y2 }}>
             <svg width="60" height="80" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M30 10 Q25 20 30 30 Q35 20 30 10" fill="#D4AF37" />
               <ellipse cx="30" cy="35" rx="15" ry="8" fill="#D4AF37" />
               <rect x="28" y="35" width="4" height="30" fill="#D4AF37" />
               <path d="M20 65 L40 65 L38 75 L22 75 Z" fill="#D4AF37" />
             </svg>
-          </div>
+          </motion.div>
 
-          <div className="absolute top-24 right-10 opacity-20 animate-float hidden lg:block" style={{ animationDelay: "1s" }}>
+          <motion.div className="absolute top-24 right-10 opacity-20 hidden lg:block" style={{ y: y2 }}>
             <svg width="60" height="80" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M30 10 Q25 20 30 30 Q35 20 30 10" fill="#D4AF37" />
               <ellipse cx="30" cy="35" rx="15" ry="8" fill="#D4AF37" />
               <rect x="28" y="35" width="4" height="30" fill="#D4AF37" />
               <path d="M20 65 L40 65 L38 75 L22 75 Z" fill="#D4AF37" />
             </svg>
-          </div>
+          </motion.div>
 
           {/* Lotus Flowers */}
-          <div className="absolute bottom-32 left-20 opacity-15 animate-float hidden lg:block" style={{ animationDelay: "0.5s" }}>
+          <motion.div className="absolute bottom-32 left-20 opacity-15 hidden lg:block" style={{ rotate, y: y1 }}>
             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="40" cy="60" rx="8" ry="15" fill="#D4AF37" transform="rotate(-30 40 60)" />
               <ellipse cx="40" cy="60" rx="8" ry="15" fill="#D4AF37" transform="rotate(30 40 60)" />
@@ -163,9 +264,9 @@ function App() {
               <ellipse cx="40" cy="60" rx="8" ry="15" fill="#D4AF37" transform="rotate(-60 40 60)" />
               <circle cx="40" cy="60" r="6" fill="#FDD835" />
             </svg>
-          </div>
+          </motion.div>
 
-          <div className="absolute bottom-32 right-20 opacity-15 animate-float hidden lg:block" style={{ animationDelay: "1.5s" }}>
+          <motion.div className="absolute bottom-32 right-20 opacity-15 hidden lg:block" style={{ rotate, y: y1 }}>
             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="40" cy="60" rx="8" ry="15" fill="#D4AF37" transform="rotate(-30 40 60)" />
               <ellipse cx="40" cy="60" rx="8" ry="15" fill="#D4AF37" transform="rotate(30 40 60)" />
@@ -174,7 +275,7 @@ function App() {
               <ellipse cx="40" cy="60" rx="8" ry="15" fill="#D4AF37" transform="rotate(-60 40 60)" />
               <circle cx="40" cy="60" r="6" fill="#FDD835" />
             </svg>
-          </div>
+          </motion.div>
 
           {/* Kathakali-inspired decorative elements */}
           <div className="absolute top-1/3 left-32 opacity-10 hidden xl:block">
@@ -196,22 +297,45 @@ function App() {
           </div>
 
           {/* Coconut Tree Silhouettes */}
-          <div className="absolute bottom-0 left-0 opacity-10 hidden lg:block">
+          <motion.div className="absolute bottom-0 left-0 opacity-10 hidden lg:block" style={{ y: y1 }}>
             <svg width="120" height="200" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="55" y="80" width="10" height="120" fill="#D4AF37" />
               <ellipse cx="60" cy="70" rx="25" ry="15" fill="#D4AF37" transform="rotate(-20 60 70)" />
               <ellipse cx="60" cy="70" rx="25" ry="15" fill="#D4AF37" transform="rotate(20 60 70)" />
               <ellipse cx="60" cy="70" rx="25" ry="15" fill="#D4AF37" />
             </svg>
-          </div>
+          </motion.div>
 
-          <div className="absolute bottom-0 right-0 opacity-10 hidden lg:block">
+          <motion.div className="absolute bottom-0 right-0 opacity-10 hidden lg:block" style={{ y: y1 }}>
             <svg width="120" height="200" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="55" y="80" width="10" height="120" fill="#D4AF37" />
               <ellipse cx="60" cy="70" rx="25" ry="15" fill="#D4AF37" transform="rotate(-20 60 70)" />
               <ellipse cx="60" cy="70" rx="25" ry="15" fill="#D4AF37" transform="rotate(20 60 70)" />
               <ellipse cx="60" cy="70" rx="25" ry="15" fill="#D4AF37" />
             </svg>
+          </motion.div>
+
+          {/* Sparkling Dust Particles - Desktop Only */}
+          <div className="absolute inset-0 pointer-events-none hidden md:block">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-[#FDD835] rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  opacity: [0, 0.8, 0],
+                  scale: [0, 1.5, 0],
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 3,
+                  repeat: Infinity,
+                  delay: Math.random() * 2
+                }}
+              />
+            ))}
           </div>
 
           <div className="container mx-auto px-6 relative z-10 text-center">
@@ -221,8 +345,8 @@ function App() {
               transition={{ duration: 0.8 }}
               className="space-y-6"
             >
-              <div className="inline-block px-6 py-2 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full border-2 border-[#D4AF37] mb-4">
-                <p className="text-[#D4AF37] font-semibold text-sm md:text-base">
+              <div className="inline-block px-4 py-2 md:px-6 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full border-2 border-[#D4AF37] mb-4 max-w-[90vw]">
+                <p className="text-[#D4AF37] font-semibold text-xs md:text-base whitespace-normal break-words leading-tight">
                   Mind Empowered Mental Health Festival
                 </p>
               </div>
@@ -245,11 +369,11 @@ function App() {
               <div className="flex justify-center mt-10">
                 <div className="relative group">
                   <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
-                  <div className="relative bg-black/30 backdrop-blur-md border border-[#D4AF37]/40 px-8 py-4 rounded-full flex items-baseline gap-3 shadow-2xl">
-                    <span className="text-5xl md:text-7xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                  <div className="relative bg-black/30 backdrop-blur-md border border-[#D4AF37]/40 px-5 py-3 md:px-8 md:py-4 rounded-full flex items-baseline gap-2 md:gap-3 shadow-2xl">
+                    <span className="text-3xl md:text-7xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
                       {timeLeft.days}
                     </span>
-                    <span className="text-[#D4AF37] text-xl md:text-2xl font-medium uppercase tracking-widest">
+                    <span className="text-[#D4AF37] text-sm md:text-2xl font-medium uppercase tracking-widest">
                       Days To Go
                     </span>
                   </div>
@@ -263,14 +387,14 @@ function App() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
                 <Button
                   size="lg"
-                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] font-bold text-lg px-8 py-6 h-auto shadow-xl"
+                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] font-bold text-sm md:text-lg px-6 py-3 md:px-8 md:py-6 h-auto shadow-xl active:scale-95 transition-transform duration-200"
                 >
                   Join the Movement
                 </Button>
                 <a href="https://www.mind-empowered.org" target="_blank" rel="noopener noreferrer">
                   <Button
                     size="lg"
-                    className="border-2 border-white bg-white text-[#800020] hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-lg px-8 py-6 h-auto shadow-xl transition-all duration-300"
+                    className="border-2 border-white bg-transparent text-white hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-sm md:text-lg px-6 py-3 md:px-8 md:py-6 h-auto shadow-xl transition-all duration-300 active:scale-95"
                   >
                     Learn ME
                   </Button>
@@ -378,7 +502,7 @@ function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white border-[#D4AF37]/20">
+                  <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 active:scale-95 bg-white border-[#D4AF37]/20">
                     <CardHeader className="text-center">
                       <div className="w-16 h-16 mx-auto bg-gradient-to-br from-[#800020] to-[#A0153E] rounded-full flex items-center justify-center mb-4">
                         <objective.icon className="w-8 h-8 text-[#D4AF37]" />
@@ -529,7 +653,8 @@ function App() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Activities Container - Horizontal scroll on mobile, Grid on desktop */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
               {[
                 {
                   image: "/empathy_walk.jpeg",
@@ -563,30 +688,34 @@ function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="group cursor-pointer"
+                  className="min-w-[85vw] md:min-w-0 snap-center"
                 >
-                  <Card className="h-full overflow-hidden border-2 hover:border-[#D4AF37] transition-all duration-300 flex flex-col">
-                    <div className="h-48 overflow-hidden">
-                      <img
-                        src={activity.image}
-                        alt={activity.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-[#800020] text-xl">{activity.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow flex flex-col">
-                      <p className="text-gray-600 mb-4 flex-grow">{activity.description}</p>
-                      <Button
-                        className="w-full bg-[#800020] hover:bg-[#A0153E] text-white mt-4"
-                        size="sm"
-                      >
-                        Register for this Activity
-                      </Button>
-                    </CardContent>
-                  </Card>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="group cursor-pointer h-full"
+                  >
+                    <Card className="h-full overflow-hidden border-2 hover:border-[#D4AF37] transition-all duration-300 flex flex-col active:scale-95">
+                      <div className="h-48 overflow-hidden">
+                        <img
+                          src={activity.image}
+                          alt={activity.title}
+                          className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-110"
+                        />
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="text-[#800020] text-xl">{activity.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex-grow flex flex-col">
+                        <p className="text-gray-600 mb-4 flex-grow">{activity.description}</p>
+                        <Button
+                          className="w-full bg-[#800020] hover:bg-[#A0153E] text-white mt-4 active:scale-95 transition-transform"
+                          size="sm"
+                        >
+                          Register for this Activity
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
@@ -621,8 +750,60 @@ function App() {
             <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
 
             <div className="flex overflow-hidden group">
+              {/* Mobile: Horizontal Manual Scroll */}
+              <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 pb-8 w-full scrollbar-hide">
+                {[
+                  {
+                    image: "/speaker_psychologist.png",
+                    name: "Dr. Anjali Menon",
+                    role: "Clinical Psychologist",
+                    topic: "Decoding Emotions"
+                  },
+                  {
+                    image: "/speaker_dancer.png",
+                    name: "Reshma Nair",
+                    role: "Contemporary Dancer",
+                    topic: "Healing Through Movement"
+                  },
+                  {
+                    image: "/speaker_activist.png",
+                    name: "Adv. Manoj Krishna",
+                    role: "Social Activist",
+                    topic: "Community Mental Health"
+                  },
+                  {
+                    image: "/speaker_author.png",
+                    name: "Sarah Joseph",
+                    role: "Author & Speaker",
+                    topic: "Stories that Heal"
+                  }
+                ].map((speaker, index) => (
+                  <div
+                    key={index}
+                    className="min-w-[85vw] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 snap-center"
+                  >
+                    <div className="h-64 overflow-hidden">
+                      <img
+                        src={speaker.image}
+                        alt={speaker.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-6 text-center">
+                      <h3 className="text-xl font-bold text-[#800020] mb-1">{speaker.name}</h3>
+                      <p className="text-[#D4AF37] font-medium text-sm mb-3 uppercase tracking-wider">{speaker.role}</p>
+                      <div className="inline-block px-3 py-1 bg-[#800020]/5 rounded-full text-xs text-gray-600">
+                        Speaking on: {speaker.topic}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop: Auto Scroll Carousel */}
               <motion.div
-                className="flex gap-8 px-8"
+                className="hidden md:flex gap-8 px-8"
                 animate={{ x: [0, -1000] }}
                 transition={{
                   duration: 25,
@@ -667,7 +848,7 @@ function App() {
                           <img
                             src={speaker.image}
                             alt={speaker.name}
-                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            className="w-full h-full object-cover transition-transform duration-500 md:hover:scale-110"
                             loading="lazy"
                           />
                         </div>
@@ -688,7 +869,7 @@ function App() {
         </section>
 
         {/* Venue Section */}
-        <section id="venue" className="py-20 md:py-32 bg-[#F5F5DC]">
+        <section id="venue" ref={venueRef} className="relative py-20 md:py-32 bg-[#F5F5DC] overflow-hidden">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -711,14 +892,17 @@ function App() {
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-              {/* Map Container */}
+            <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-autoperspective-1000">
+              {/* Map Container - Unfolds on Scroll */}
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="w-full h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative group"
+                style={{
+                  rotateX: mapRotateX,
+                  scale: mapScale,
+                  opacity: mapOpacity,
+                  perspective: 1000,
+                  transformStyle: "preserve-3d"
+                }}
+                className="w-full h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative group origin-top"
               >
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15715.68886367746!2d76.24233305!3d9.9634996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b086d2c1c696e59%3A0xe5a20af1b6a2df84!2sFort%20Kochi%2C%20Kochi%2C%20Kerala!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
@@ -728,7 +912,7 @@ function App() {
                   allowFullScreen={true}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="grayscale group-hover:grayscale-0 transition-all duration-700"
+                  className="grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700"
                 />
                 <div className="absolute inset-0 pointer-events-none border-[12px] border-[#800020]/10" />
               </motion.div>
@@ -804,7 +988,7 @@ function App() {
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-white font-semibold text-lg">{img.caption}</p>
                   </div>
                 </motion.div>
@@ -996,12 +1180,12 @@ function App() {
 
 
         {/* Footer/Contact Section */}
-        <footer className="bg-gradient-to-b from-[#800020] to-[#5C0120] text-white py-16" >
+        <footer className="bg-gradient-to-b from-[#800020] to-[#5C0120] text-white py-8 md:py-16" >
           {/* Kerala Pattern Divider */}
           <div className="h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-12" />
 
           <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8 md:mb-12">
               {/* Festival Info */}
               <div className="lg:col-span-2">
                 <h3 className="text-3xl font-bold text-[#D4AF37] mb-2">Dhriti</h3>
@@ -1009,7 +1193,7 @@ function App() {
                 <p className="text-white/70 mb-6">
                   Kerala's first community-led mental health festival bringing joy, awareness, and transformation to our community in February 2026.
                 </p>
-                <div className="flex gap-4">
+                <div className="hidden md:flex gap-4">
                   <a
                     href="https://instagram.com"
                     target="https://www.instagram.com/mind.empowered?igsh=bGNmYXI1czlrcDhi"
@@ -1031,8 +1215,8 @@ function App() {
                 </div>
               </div>
 
-              {/* Quick Links */}
-              <div>
+              {/* Quick Links - Hidden on Mobile to save space */}
+              <div className="hidden md:block">
                 <h4 className="font-bold text-lg mb-4 text-[#D4AF37]">Quick Links</h4>
                 <ul className="space-y-2">
                   <li>
@@ -1059,7 +1243,8 @@ function App() {
               </div>
 
               {/* Contact */}
-              <div>
+              {/* Contact - Hidden on Mobile */}
+              <div className="hidden md:block">
                 <h4 className="font-bold text-lg mb-4 text-[#D4AF37]">Get in Touch</h4>
                 <div className="space-y-3">
                   <a
@@ -1075,9 +1260,9 @@ function App() {
 
             <Separator className="bg-white/20 my-8" />
 
-            <div className="text-center text-white/60 text-sm">
+            <div className="text-center text-white/60 text-xs md:text-sm">
               <p>&copy; 2026 Mind Empowered. All rights reserved.</p>
-              <p className="mt-2">
+              <p className="mt-1 md:mt-2">
                 Dedicated to creating a stigma-free, mentally healthy Kerala.
               </p>
             </div>
@@ -1087,20 +1272,18 @@ function App() {
 
       {/* Scroll to Top Button */}
       <AnimatePresence>
-        {
-          showScrollTop && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              onClick={scrollToTop}
-              className="fixed bottom-8 right-8 z-50 p-4 bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] rounded-full shadow-2xl border-2 border-white hover:scale-110 transition-all duration-300"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp className="w-6 h-6" />
-            </motion.button>
-          )
-        }
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-50 p-4 bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] rounded-full shadow-2xl border-2 border-white hover:scale-110 transition-all duration-300"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
+        )}
       </AnimatePresence>
     </div>
   );

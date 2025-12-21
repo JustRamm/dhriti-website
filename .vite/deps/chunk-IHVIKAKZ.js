@@ -1,10 +1,10 @@
 import {
+  require_react_dom
+} from "./chunk-HQYTDYU2.js";
+import {
   composeRefs,
   useComposedRefs
 } from "./chunk-USCSQX53.js";
-import {
-  require_react_dom
-} from "./chunk-HQYTDYU2.js";
 import {
   require_jsx_runtime
 } from "./chunk-KS3QKPRE.js";
@@ -14,17 +14,6 @@ import {
 import {
   __toESM
 } from "./chunk-G3PMV62Z.js";
-
-// node_modules/@radix-ui/primitive/dist/index.mjs
-var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
-function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
-  return function handleEvent(event) {
-    originalEventHandler == null ? void 0 : originalEventHandler(event);
-    if (checkForDefaultPrevented === false || !event.defaultPrevented) {
-      return ourEventHandler == null ? void 0 : ourEventHandler(event);
-    }
-  };
-}
 
 // node_modules/@radix-ui/react-context/dist/index.mjs
 var React = __toESM(require_react(), 1);
@@ -105,36 +94,35 @@ function composeContextScopes(...scopes) {
   return createScope;
 }
 
-// node_modules/@radix-ui/react-id/dist/index.mjs
-var React3 = __toESM(require_react(), 1);
+// node_modules/@radix-ui/primitive/dist/index.mjs
+var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
+function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
+  return function handleEvent(event) {
+    originalEventHandler == null ? void 0 : originalEventHandler(event);
+    if (checkForDefaultPrevented === false || !event.defaultPrevented) {
+      return ourEventHandler == null ? void 0 : ourEventHandler(event);
+    }
+  };
+}
+
+// node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
+var React4 = __toESM(require_react(), 1);
 
 // node_modules/@radix-ui/react-use-layout-effect/dist/index.mjs
 var React2 = __toESM(require_react(), 1);
 var useLayoutEffect2 = (globalThis == null ? void 0 : globalThis.document) ? React2.useLayoutEffect : () => {
 };
 
-// node_modules/@radix-ui/react-id/dist/index.mjs
-var useReactId = React3[" useId ".trim().toString()] || (() => void 0);
-var count = 0;
-function useId(deterministicId) {
-  const [id, setId] = React3.useState(useReactId());
-  useLayoutEffect2(() => {
-    if (!deterministicId) setId((reactId) => reactId ?? String(count++));
-  }, [deterministicId]);
-  return deterministicId || (id ? `radix-${id}` : "");
-}
-
 // node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-var React5 = __toESM(require_react(), 1);
 var React22 = __toESM(require_react(), 1);
 
 // node_modules/@radix-ui/react-use-effect-event/dist/index.mjs
-var React4 = __toESM(require_react(), 1);
-var useReactEffectEvent = React4[" useEffectEvent ".trim().toString()];
-var useReactInsertionEffect = React4[" useInsertionEffect ".trim().toString()];
+var React3 = __toESM(require_react(), 1);
+var useReactEffectEvent = React3[" useEffectEvent ".trim().toString()];
+var useReactInsertionEffect = React3[" useInsertionEffect ".trim().toString()];
 
 // node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-var useInsertionEffect = React5[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+var useInsertionEffect = React4[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
 function useControllableState({
   prop,
   defaultProp,
@@ -149,8 +137,8 @@ function useControllableState({
   const isControlled = prop !== void 0;
   const value = isControlled ? prop : uncontrolledProp;
   if (true) {
-    const isControlledRef = React5.useRef(prop !== void 0);
-    React5.useEffect(() => {
+    const isControlledRef = React4.useRef(prop !== void 0);
+    React4.useEffect(() => {
       const wasControlled = isControlledRef.current;
       if (wasControlled !== isControlled) {
         const from = wasControlled ? "controlled" : "uncontrolled";
@@ -162,7 +150,7 @@ function useControllableState({
       isControlledRef.current = isControlled;
     }, [isControlled, caller]);
   }
-  const setValue = React5.useCallback(
+  const setValue = React4.useCallback(
     (nextValue) => {
       var _a;
       if (isControlled) {
@@ -182,13 +170,13 @@ function useUncontrolledState({
   defaultProp,
   onChange
 }) {
-  const [value, setValue] = React5.useState(defaultProp);
-  const prevValueRef = React5.useRef(value);
-  const onChangeRef = React5.useRef(onChange);
+  const [value, setValue] = React4.useState(defaultProp);
+  const prevValueRef = React4.useRef(value);
+  const onChangeRef = React4.useRef(onChange);
   useInsertionEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
-  React5.useEffect(() => {
+  React4.useEffect(() => {
     var _a;
     if (prevValueRef.current !== value) {
       (_a = onChangeRef.current) == null ? void 0 : _a.call(onChangeRef, value);
@@ -203,29 +191,29 @@ function isFunction(value) {
 var SYNC_STATE = Symbol("RADIX:SYNC_STATE");
 
 // node_modules/@radix-ui/react-primitive/dist/index.mjs
-var React7 = __toESM(require_react(), 1);
+var React6 = __toESM(require_react(), 1);
 var ReactDOM = __toESM(require_react_dom(), 1);
 
 // node_modules/@radix-ui/react-primitive/node_modules/@radix-ui/react-slot/dist/index.mjs
-var React6 = __toESM(require_react(), 1);
+var React5 = __toESM(require_react(), 1);
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 function createSlot(ownerName) {
   const SlotClone = createSlotClone(ownerName);
-  const Slot2 = React6.forwardRef((props, forwardedRef) => {
+  const Slot2 = React5.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React6.Children.toArray(children);
+    const childrenArray = React5.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React6.Children.count(newElement) > 1) return React6.Children.only(null);
-          return React6.isValidElement(newElement) ? newElement.props.children : null;
+          if (React5.Children.count(newElement) > 1) return React5.Children.only(null);
+          return React5.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children: React6.isValidElement(newElement) ? React6.cloneElement(newElement, void 0, newChildren) : null });
+      return (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children: React5.isValidElement(newElement) ? React5.cloneElement(newElement, void 0, newChildren) : null });
     }
     return (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -234,17 +222,17 @@ function createSlot(ownerName) {
 }
 var Slot = createSlot("Slot");
 function createSlotClone(ownerName) {
-  const SlotClone = React6.forwardRef((props, forwardedRef) => {
+  const SlotClone = React5.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React6.isValidElement(children)) {
+    if (React5.isValidElement(children)) {
       const childrenRef = getElementRef(children);
       const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== React6.Fragment) {
+      if (children.type !== React5.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React6.cloneElement(children, props2);
+      return React5.cloneElement(children, props2);
     }
-    return React6.Children.count(children) > 1 ? React6.Children.only(null) : null;
+    return React5.Children.count(children) > 1 ? React5.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
@@ -260,7 +248,7 @@ function createSlottable(ownerName) {
 }
 var Slottable = createSlottable("Slottable");
 function isSlottable(child) {
-  return React6.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+  return React5.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
 }
 function mergeProps(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -324,7 +312,7 @@ var NODES = [
 ];
 var Primitive = NODES.reduce((primitive, node) => {
   const Slot2 = createSlot(`Primitive.${node}`);
-  const Node = React7.forwardRef((props, forwardedRef) => {
+  const Node = React6.forwardRef((props, forwardedRef) => {
     const { asChild, ...primitiveProps } = props;
     const Comp = asChild ? Slot2 : node;
     if (typeof window !== "undefined") {
@@ -341,9 +329,9 @@ function dispatchDiscreteCustomEvent(target, event) {
 
 // node_modules/@radix-ui/react-presence/dist/index.mjs
 var React23 = __toESM(require_react(), 1);
-var React8 = __toESM(require_react(), 1);
+var React7 = __toESM(require_react(), 1);
 function useStateMachine(initialState, machine) {
-  return React8.useReducer((state, event) => {
+  return React7.useReducer((state, event) => {
     const nextState = machine[state][event];
     return nextState ?? state;
   }, initialState);
@@ -466,15 +454,27 @@ function getElementRef2(element) {
   return element.props.ref || element.ref;
 }
 
+// node_modules/@radix-ui/react-id/dist/index.mjs
+var React8 = __toESM(require_react(), 1);
+var useReactId = React8[" useId ".trim().toString()] || (() => void 0);
+var count = 0;
+function useId(deterministicId) {
+  const [id, setId] = React8.useState(useReactId());
+  useLayoutEffect2(() => {
+    if (!deterministicId) setId((reactId) => reactId ?? String(count++));
+  }, [deterministicId]);
+  return deterministicId || (id ? `radix-${id}` : "");
+}
+
 export {
-  composeEventHandlers,
   createContext2,
   createContextScope,
+  composeEventHandlers,
   useLayoutEffect2,
-  useId,
   useControllableState,
   Primitive,
   dispatchDiscreteCustomEvent,
-  Presence
+  Presence,
+  useId
 };
-//# sourceMappingURL=chunk-TZKWFXQH.js.map
+//# sourceMappingURL=chunk-IHVIKAKZ.js.map
