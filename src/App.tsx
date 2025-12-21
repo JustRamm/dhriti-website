@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import {
   Heart,
@@ -26,7 +27,8 @@ import {
   TrendingUp,
   Shield,
   ArrowUp,
-  Quote
+  Quote,
+  Menu
 } from "lucide-react";
 
 function App() {
@@ -58,37 +60,33 @@ function App() {
             </div>
 
             {/* Navigation Links - Right Side */}
-            <div className="flex items-center gap-8">
-              <a
-                href="#home"
-                className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium"
-              >
-                Home
-              </a>
-              <a
-                href="#why"
-                className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium hidden md:block"
-              >
-                Why Dhriti
-              </a>
-              <a
-                href="#objectives"
-                className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium hidden md:block"
-              >
-                Objectives
-              </a>
-              <a
-                href="#activities"
-                className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium hidden md:block"
-              >
-                Activities
-              </a>
-              <a
-                href="#partnership"
-                className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium hidden lg:block"
-              >
-                Partnership
-              </a>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#home" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Home</a>
+              <a href="#why" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Why Dhriti</a>
+              <a href="#objectives" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Objectives</a>
+              <a href="#activities" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Activities</a>
+              <a href="#partnership" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Partnership</a>
+            </div>
+
+            {/* Mobile Navigation */}
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent className="bg-[#800020] border-l border-[#D4AF37]/20">
+                  <div className="flex flex-col gap-6 mt-10">
+                    <a href="#home" className="text-xl text-white font-medium hover:text-[#D4AF37]">Home</a>
+                    <a href="#why" className="text-xl text-white font-medium hover:text-[#D4AF37]">Why Dhriti</a>
+                    <a href="#objectives" className="text-xl text-white font-medium hover:text-[#D4AF37]">Objectives</a>
+                    <a href="#activities" className="text-xl text-white font-medium hover:text-[#D4AF37]">Activities</a>
+                    <a href="#partnership" className="text-xl text-white font-medium hover:text-[#D4AF37]">Partnership</a>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
@@ -203,7 +201,7 @@ function App() {
                 </p>
               </div>
 
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight">
                 Dhriti
               </h1>
 
@@ -658,6 +656,7 @@ function App() {
                   <img
                     src={img.src}
                     alt={img.alt}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

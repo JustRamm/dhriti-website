@@ -1,11 +1,18 @@
 "use client";
 import {
-  require_react_dom
-} from "./chunk-HQYTDYU2.js";
+  Presence,
+  Primitive,
+  composeEventHandlers,
+  createContextScope,
+  useControllableState,
+  useId,
+  useLayoutEffect2
+} from "./chunk-TZKWFXQH.js";
 import {
   composeRefs,
   useComposedRefs
 } from "./chunk-USCSQX53.js";
+import "./chunk-HQYTDYU2.js";
 import {
   require_jsx_runtime
 } from "./chunk-KS3QKPRE.js";
@@ -19,127 +26,64 @@ import {
 // node_modules/@radix-ui/react-accordion/dist/index.mjs
 var import_react3 = __toESM(require_react(), 1);
 
-// node_modules/@radix-ui/react-context/dist/index.mjs
-var React = __toESM(require_react(), 1);
-var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-function createContextScope(scopeName, createContextScopeDeps = []) {
-  let defaultContexts = [];
-  function createContext3(rootComponentName, defaultContext) {
-    const BaseContext = React.createContext(defaultContext);
-    const index = defaultContexts.length;
-    defaultContexts = [...defaultContexts, defaultContext];
-    const Provider = (props) => {
-      var _a;
-      const { scope, children, ...context } = props;
-      const Context = ((_a = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a[index]) || BaseContext;
-      const value = React.useMemo(() => context, Object.values(context));
-      return (0, import_jsx_runtime.jsx)(Context.Provider, { value, children });
-    };
-    Provider.displayName = rootComponentName + "Provider";
-    function useContext22(consumerName, scope) {
-      var _a;
-      const Context = ((_a = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a[index]) || BaseContext;
-      const context = React.useContext(Context);
-      if (context) return context;
-      if (defaultContext !== void 0) return defaultContext;
-      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
-    }
-    return [Provider, useContext22];
-  }
-  const createScope = () => {
-    const scopeContexts = defaultContexts.map((defaultContext) => {
-      return React.createContext(defaultContext);
-    });
-    return function useScope(scope) {
-      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
-      return React.useMemo(
-        () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
-        [scope, contexts]
-      );
-    };
-  };
-  createScope.scopeName = scopeName;
-  return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
-}
-function composeContextScopes(...scopes) {
-  const baseScope = scopes[0];
-  if (scopes.length === 1) return baseScope;
-  const createScope = () => {
-    const scopeHooks = scopes.map((createScope2) => ({
-      useScope: createScope2(),
-      scopeName: createScope2.scopeName
-    }));
-    return function useComposedScopes(overrideScopes) {
-      const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
-        const scopeProps = useScope(overrideScopes);
-        const currentScope = scopeProps[`__scope${scopeName}`];
-        return { ...nextScopes2, ...currentScope };
-      }, {});
-      return React.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
-    };
-  };
-  createScope.scopeName = baseScope.scopeName;
-  return createScope;
-}
-
 // node_modules/@radix-ui/react-collection/dist/index.mjs
 var import_react = __toESM(require_react(), 1);
 
 // node_modules/@radix-ui/react-collection/node_modules/@radix-ui/react-slot/dist/index.mjs
-var React2 = __toESM(require_react(), 1);
-var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+var React = __toESM(require_react(), 1);
+var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 function createSlot(ownerName) {
   const SlotClone = createSlotClone(ownerName);
-  const Slot22 = React2.forwardRef((props, forwardedRef) => {
+  const Slot2 = React.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React2.Children.toArray(children);
+    const childrenArray = React.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React2.Children.count(newElement) > 1) return React2.Children.only(null);
-          return React2.isValidElement(newElement) ? newElement.props.children : null;
+          if (React.Children.count(newElement) > 1) return React.Children.only(null);
+          return React.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children: React2.isValidElement(newElement) ? React2.cloneElement(newElement, void 0, newChildren) : null });
+      return (0, import_jsx_runtime.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children: React.isValidElement(newElement) ? React.cloneElement(newElement, void 0, newChildren) : null });
     }
-    return (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children });
+    return (0, import_jsx_runtime.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
-  Slot22.displayName = `${ownerName}.Slot`;
-  return Slot22;
+  Slot2.displayName = `${ownerName}.Slot`;
+  return Slot2;
 }
 var Slot = createSlot("Slot");
 function createSlotClone(ownerName) {
-  const SlotClone = React2.forwardRef((props, forwardedRef) => {
+  const SlotClone = React.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React2.isValidElement(children)) {
+    if (React.isValidElement(children)) {
       const childrenRef = getElementRef(children);
       const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== React2.Fragment) {
+      if (children.type !== React.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React2.cloneElement(children, props2);
+      return React.cloneElement(children, props2);
     }
-    return React2.Children.count(children) > 1 ? React2.Children.only(null) : null;
+    return React.Children.count(children) > 1 ? React.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
 function createSlottable(ownerName) {
-  const Slottable22 = ({ children }) => {
-    return (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children });
+  const Slottable2 = ({ children }) => {
+    return (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children });
   };
-  Slottable22.displayName = `${ownerName}.Slottable`;
-  Slottable22.__radixId = SLOTTABLE_IDENTIFIER;
-  return Slottable22;
+  Slottable2.displayName = `${ownerName}.Slottable`;
+  Slottable2.__radixId = SLOTTABLE_IDENTIFIER;
+  return Slottable2;
 }
 var Slottable = createSlottable("Slottable");
 function isSlottable(child) {
-  return React2.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+  return React.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
 }
 function mergeProps(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -181,9 +125,9 @@ function getElementRef(element) {
 }
 
 // node_modules/@radix-ui/react-collection/dist/index.mjs
-var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 var import_react2 = __toESM(require_react(), 1);
-var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 function createCollection(name) {
   const PROVIDER_NAME = name + "CollectionProvider";
   const [createCollectionContext, createCollectionScope2] = createContextScope(PROVIDER_NAME);
@@ -195,7 +139,7 @@ function createCollection(name) {
     const { scope, children } = props;
     const ref = import_react.default.useRef(null);
     const itemMap = import_react.default.useRef(/* @__PURE__ */ new Map()).current;
-    return (0, import_jsx_runtime3.jsx)(CollectionProviderImpl, { scope, itemMap, collectionRef: ref, children });
+    return (0, import_jsx_runtime2.jsx)(CollectionProviderImpl, { scope, itemMap, collectionRef: ref, children });
   };
   CollectionProvider.displayName = PROVIDER_NAME;
   const COLLECTION_SLOT_NAME = name + "CollectionSlot";
@@ -205,7 +149,7 @@ function createCollection(name) {
       const { scope, children } = props;
       const context = useCollectionContext(COLLECTION_SLOT_NAME, scope);
       const composedRefs = useComposedRefs(forwardedRef, context.collectionRef);
-      return (0, import_jsx_runtime3.jsx)(CollectionSlotImpl, { ref: composedRefs, children });
+      return (0, import_jsx_runtime2.jsx)(CollectionSlotImpl, { ref: composedRefs, children });
     }
   );
   CollectionSlot.displayName = COLLECTION_SLOT_NAME;
@@ -222,7 +166,7 @@ function createCollection(name) {
         context.itemMap.set(ref, { ref, ...itemData });
         return () => void context.itemMap.delete(ref);
       });
-      return (0, import_jsx_runtime3.jsx)(CollectionItemSlotImpl, { ...{ [ITEM_DATA_ATTR]: "" }, ref: composedRefs, children });
+      return (0, import_jsx_runtime2.jsx)(CollectionItemSlotImpl, { ...{ [ITEM_DATA_ATTR]: "" }, ref: composedRefs, children });
     }
   );
   CollectionItemSlot.displayName = ITEM_SLOT_NAME;
@@ -247,384 +191,13 @@ function createCollection(name) {
   ];
 }
 
-// node_modules/@radix-ui/primitive/dist/index.mjs
-var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
-function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
-  return function handleEvent(event) {
-    originalEventHandler == null ? void 0 : originalEventHandler(event);
-    if (checkForDefaultPrevented === false || !event.defaultPrevented) {
-      return ourEventHandler == null ? void 0 : ourEventHandler(event);
-    }
-  };
-}
-
-// node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-var React6 = __toESM(require_react(), 1);
-
-// node_modules/@radix-ui/react-use-layout-effect/dist/index.mjs
-var React4 = __toESM(require_react(), 1);
-var useLayoutEffect2 = (globalThis == null ? void 0 : globalThis.document) ? React4.useLayoutEffect : () => {
-};
-
-// node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-var React23 = __toESM(require_react(), 1);
-
-// node_modules/@radix-ui/react-use-effect-event/dist/index.mjs
-var React5 = __toESM(require_react(), 1);
-var useReactEffectEvent = React5[" useEffectEvent ".trim().toString()];
-var useReactInsertionEffect = React5[" useInsertionEffect ".trim().toString()];
-
-// node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-var useInsertionEffect = React6[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
-function useControllableState({
-  prop,
-  defaultProp,
-  onChange = () => {
-  },
-  caller
-}) {
-  const [uncontrolledProp, setUncontrolledProp, onChangeRef] = useUncontrolledState({
-    defaultProp,
-    onChange
-  });
-  const isControlled = prop !== void 0;
-  const value = isControlled ? prop : uncontrolledProp;
-  if (true) {
-    const isControlledRef = React6.useRef(prop !== void 0);
-    React6.useEffect(() => {
-      const wasControlled = isControlledRef.current;
-      if (wasControlled !== isControlled) {
-        const from = wasControlled ? "controlled" : "uncontrolled";
-        const to = isControlled ? "controlled" : "uncontrolled";
-        console.warn(
-          `${caller} is changing from ${from} to ${to}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
-        );
-      }
-      isControlledRef.current = isControlled;
-    }, [isControlled, caller]);
-  }
-  const setValue = React6.useCallback(
-    (nextValue) => {
-      var _a;
-      if (isControlled) {
-        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
-        if (value2 !== prop) {
-          (_a = onChangeRef.current) == null ? void 0 : _a.call(onChangeRef, value2);
-        }
-      } else {
-        setUncontrolledProp(nextValue);
-      }
-    },
-    [isControlled, prop, setUncontrolledProp, onChangeRef]
-  );
-  return [value, setValue];
-}
-function useUncontrolledState({
-  defaultProp,
-  onChange
-}) {
-  const [value, setValue] = React6.useState(defaultProp);
-  const prevValueRef = React6.useRef(value);
-  const onChangeRef = React6.useRef(onChange);
-  useInsertionEffect(() => {
-    onChangeRef.current = onChange;
-  }, [onChange]);
-  React6.useEffect(() => {
-    var _a;
-    if (prevValueRef.current !== value) {
-      (_a = onChangeRef.current) == null ? void 0 : _a.call(onChangeRef, value);
-      prevValueRef.current = value;
-    }
-  }, [value, prevValueRef]);
-  return [value, setValue, onChangeRef];
-}
-function isFunction(value) {
-  return typeof value === "function";
-}
-var SYNC_STATE = Symbol("RADIX:SYNC_STATE");
-
-// node_modules/@radix-ui/react-primitive/dist/index.mjs
-var React8 = __toESM(require_react(), 1);
-var ReactDOM = __toESM(require_react_dom(), 1);
-
-// node_modules/@radix-ui/react-primitive/node_modules/@radix-ui/react-slot/dist/index.mjs
-var React7 = __toESM(require_react(), 1);
-var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
-function createSlot2(ownerName) {
-  const SlotClone = createSlotClone2(ownerName);
-  const Slot22 = React7.forwardRef((props, forwardedRef) => {
-    const { children, ...slotProps } = props;
-    const childrenArray = React7.Children.toArray(children);
-    const slottable = childrenArray.find(isSlottable2);
-    if (slottable) {
-      const newElement = slottable.props.children;
-      const newChildren = childrenArray.map((child) => {
-        if (child === slottable) {
-          if (React7.Children.count(newElement) > 1) return React7.Children.only(null);
-          return React7.isValidElement(newElement) ? newElement.props.children : null;
-        } else {
-          return child;
-        }
-      });
-      return (0, import_jsx_runtime5.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children: React7.isValidElement(newElement) ? React7.cloneElement(newElement, void 0, newChildren) : null });
-    }
-    return (0, import_jsx_runtime5.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children });
-  });
-  Slot22.displayName = `${ownerName}.Slot`;
-  return Slot22;
-}
-var Slot2 = createSlot2("Slot");
-function createSlotClone2(ownerName) {
-  const SlotClone = React7.forwardRef((props, forwardedRef) => {
-    const { children, ...slotProps } = props;
-    if (React7.isValidElement(children)) {
-      const childrenRef = getElementRef2(children);
-      const props2 = mergeProps2(slotProps, children.props);
-      if (children.type !== React7.Fragment) {
-        props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
-      }
-      return React7.cloneElement(children, props2);
-    }
-    return React7.Children.count(children) > 1 ? React7.Children.only(null) : null;
-  });
-  SlotClone.displayName = `${ownerName}.SlotClone`;
-  return SlotClone;
-}
-var SLOTTABLE_IDENTIFIER2 = Symbol("radix.slottable");
-function createSlottable2(ownerName) {
-  const Slottable22 = ({ children }) => {
-    return (0, import_jsx_runtime5.jsx)(import_jsx_runtime5.Fragment, { children });
-  };
-  Slottable22.displayName = `${ownerName}.Slottable`;
-  Slottable22.__radixId = SLOTTABLE_IDENTIFIER2;
-  return Slottable22;
-}
-var Slottable2 = createSlottable2("Slottable");
-function isSlottable2(child) {
-  return React7.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
-}
-function mergeProps2(slotProps, childProps) {
-  const overrideProps = { ...childProps };
-  for (const propName in childProps) {
-    const slotPropValue = slotProps[propName];
-    const childPropValue = childProps[propName];
-    const isHandler = /^on[A-Z]/.test(propName);
-    if (isHandler) {
-      if (slotPropValue && childPropValue) {
-        overrideProps[propName] = (...args) => {
-          const result = childPropValue(...args);
-          slotPropValue(...args);
-          return result;
-        };
-      } else if (slotPropValue) {
-        overrideProps[propName] = slotPropValue;
-      }
-    } else if (propName === "style") {
-      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === "className") {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(" ");
-    }
-  }
-  return { ...slotProps, ...overrideProps };
-}
-function getElementRef2(element) {
-  var _a, _b;
-  let getter = (_a = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a.get;
-  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.ref;
-  }
-  getter = (_b = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b.get;
-  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.props.ref;
-  }
-  return element.props.ref || element.ref;
-}
-
-// node_modules/@radix-ui/react-primitive/dist/index.mjs
-var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
-var NODES = [
-  "a",
-  "button",
-  "div",
-  "form",
-  "h2",
-  "h3",
-  "img",
-  "input",
-  "label",
-  "li",
-  "nav",
-  "ol",
-  "p",
-  "select",
-  "span",
-  "svg",
-  "ul"
-];
-var Primitive = NODES.reduce((primitive, node) => {
-  const Slot3 = createSlot2(`Primitive.${node}`);
-  const Node2 = React8.forwardRef((props, forwardedRef) => {
-    const { asChild, ...primitiveProps } = props;
-    const Comp = asChild ? Slot3 : node;
-    if (typeof window !== "undefined") {
-      window[Symbol.for("radix-ui")] = true;
-    }
-    return (0, import_jsx_runtime6.jsx)(Comp, { ...primitiveProps, ref: forwardedRef });
-  });
-  Node2.displayName = `Primitive.${node}`;
-  return { ...primitive, [node]: Node2 };
-}, {});
-
 // node_modules/@radix-ui/react-collapsible/dist/index.mjs
-var React11 = __toESM(require_react(), 1);
-
-// node_modules/@radix-ui/react-presence/dist/index.mjs
-var React24 = __toESM(require_react(), 1);
-var React9 = __toESM(require_react(), 1);
-function useStateMachine(initialState, machine) {
-  return React9.useReducer((state, event) => {
-    const nextState = machine[state][event];
-    return nextState ?? state;
-  }, initialState);
-}
-var Presence = (props) => {
-  const { present, children } = props;
-  const presence = usePresence(present);
-  const child = typeof children === "function" ? children({ present: presence.isPresent }) : React24.Children.only(children);
-  const ref = useComposedRefs(presence.ref, getElementRef3(child));
-  const forceMount = typeof children === "function";
-  return forceMount || presence.isPresent ? React24.cloneElement(child, { ref }) : null;
-};
-Presence.displayName = "Presence";
-function usePresence(present) {
-  const [node, setNode] = React24.useState();
-  const stylesRef = React24.useRef(null);
-  const prevPresentRef = React24.useRef(present);
-  const prevAnimationNameRef = React24.useRef("none");
-  const initialState = present ? "mounted" : "unmounted";
-  const [state, send] = useStateMachine(initialState, {
-    mounted: {
-      UNMOUNT: "unmounted",
-      ANIMATION_OUT: "unmountSuspended"
-    },
-    unmountSuspended: {
-      MOUNT: "mounted",
-      ANIMATION_END: "unmounted"
-    },
-    unmounted: {
-      MOUNT: "mounted"
-    }
-  });
-  React24.useEffect(() => {
-    const currentAnimationName = getAnimationName(stylesRef.current);
-    prevAnimationNameRef.current = state === "mounted" ? currentAnimationName : "none";
-  }, [state]);
-  useLayoutEffect2(() => {
-    const styles = stylesRef.current;
-    const wasPresent = prevPresentRef.current;
-    const hasPresentChanged = wasPresent !== present;
-    if (hasPresentChanged) {
-      const prevAnimationName = prevAnimationNameRef.current;
-      const currentAnimationName = getAnimationName(styles);
-      if (present) {
-        send("MOUNT");
-      } else if (currentAnimationName === "none" || (styles == null ? void 0 : styles.display) === "none") {
-        send("UNMOUNT");
-      } else {
-        const isAnimating = prevAnimationName !== currentAnimationName;
-        if (wasPresent && isAnimating) {
-          send("ANIMATION_OUT");
-        } else {
-          send("UNMOUNT");
-        }
-      }
-      prevPresentRef.current = present;
-    }
-  }, [present, send]);
-  useLayoutEffect2(() => {
-    if (node) {
-      let timeoutId;
-      const ownerWindow = node.ownerDocument.defaultView ?? window;
-      const handleAnimationEnd = (event) => {
-        const currentAnimationName = getAnimationName(stylesRef.current);
-        const isCurrentAnimation = currentAnimationName.includes(CSS.escape(event.animationName));
-        if (event.target === node && isCurrentAnimation) {
-          send("ANIMATION_END");
-          if (!prevPresentRef.current) {
-            const currentFillMode = node.style.animationFillMode;
-            node.style.animationFillMode = "forwards";
-            timeoutId = ownerWindow.setTimeout(() => {
-              if (node.style.animationFillMode === "forwards") {
-                node.style.animationFillMode = currentFillMode;
-              }
-            });
-          }
-        }
-      };
-      const handleAnimationStart = (event) => {
-        if (event.target === node) {
-          prevAnimationNameRef.current = getAnimationName(stylesRef.current);
-        }
-      };
-      node.addEventListener("animationstart", handleAnimationStart);
-      node.addEventListener("animationcancel", handleAnimationEnd);
-      node.addEventListener("animationend", handleAnimationEnd);
-      return () => {
-        ownerWindow.clearTimeout(timeoutId);
-        node.removeEventListener("animationstart", handleAnimationStart);
-        node.removeEventListener("animationcancel", handleAnimationEnd);
-        node.removeEventListener("animationend", handleAnimationEnd);
-      };
-    } else {
-      send("ANIMATION_END");
-    }
-  }, [node, send]);
-  return {
-    isPresent: ["mounted", "unmountSuspended"].includes(state),
-    ref: React24.useCallback((node2) => {
-      stylesRef.current = node2 ? getComputedStyle(node2) : null;
-      setNode(node2);
-    }, [])
-  };
-}
-function getAnimationName(styles) {
-  return (styles == null ? void 0 : styles.animationName) || "none";
-}
-function getElementRef3(element) {
-  var _a, _b;
-  let getter = (_a = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a.get;
-  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.ref;
-  }
-  getter = (_b = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b.get;
-  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.props.ref;
-  }
-  return element.props.ref || element.ref;
-}
-
-// node_modules/@radix-ui/react-id/dist/index.mjs
-var React10 = __toESM(require_react(), 1);
-var useReactId = React10[" useId ".trim().toString()] || (() => void 0);
-var count = 0;
-function useId(deterministicId) {
-  const [id, setId] = React10.useState(useReactId());
-  useLayoutEffect2(() => {
-    if (!deterministicId) setId((reactId) => reactId ?? String(count++));
-  }, [deterministicId]);
-  return deterministicId || (id ? `radix-${id}` : "");
-}
-
-// node_modules/@radix-ui/react-collapsible/dist/index.mjs
-var import_jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
+var React3 = __toESM(require_react(), 1);
+var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var COLLAPSIBLE_NAME = "Collapsible";
 var [createCollapsibleContext, createCollapsibleScope] = createContextScope(COLLAPSIBLE_NAME);
 var [CollapsibleProvider, useCollapsibleContext] = createCollapsibleContext(COLLAPSIBLE_NAME);
-var Collapsible = React11.forwardRef(
+var Collapsible = React3.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeCollapsible,
@@ -640,15 +213,15 @@ var Collapsible = React11.forwardRef(
       onChange: onOpenChange,
       caller: COLLAPSIBLE_NAME
     });
-    return (0, import_jsx_runtime7.jsx)(
+    return (0, import_jsx_runtime4.jsx)(
       CollapsibleProvider,
       {
         scope: __scopeCollapsible,
         disabled,
         contentId: useId(),
         open,
-        onOpenToggle: React11.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
-        children: (0, import_jsx_runtime7.jsx)(
+        onOpenToggle: React3.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+        children: (0, import_jsx_runtime4.jsx)(
           Primitive.div,
           {
             "data-state": getState(open),
@@ -663,11 +236,11 @@ var Collapsible = React11.forwardRef(
 );
 Collapsible.displayName = COLLAPSIBLE_NAME;
 var TRIGGER_NAME = "CollapsibleTrigger";
-var CollapsibleTrigger = React11.forwardRef(
+var CollapsibleTrigger = React3.forwardRef(
   (props, forwardedRef) => {
     const { __scopeCollapsible, ...triggerProps } = props;
     const context = useCollapsibleContext(TRIGGER_NAME, __scopeCollapsible);
-    return (0, import_jsx_runtime7.jsx)(
+    return (0, import_jsx_runtime4.jsx)(
       Primitive.button,
       {
         type: "button",
@@ -685,28 +258,28 @@ var CollapsibleTrigger = React11.forwardRef(
 );
 CollapsibleTrigger.displayName = TRIGGER_NAME;
 var CONTENT_NAME = "CollapsibleContent";
-var CollapsibleContent = React11.forwardRef(
+var CollapsibleContent = React3.forwardRef(
   (props, forwardedRef) => {
     const { forceMount, ...contentProps } = props;
     const context = useCollapsibleContext(CONTENT_NAME, props.__scopeCollapsible);
-    return (0, import_jsx_runtime7.jsx)(Presence, { present: forceMount || context.open, children: ({ present }) => (0, import_jsx_runtime7.jsx)(CollapsibleContentImpl, { ...contentProps, ref: forwardedRef, present }) });
+    return (0, import_jsx_runtime4.jsx)(Presence, { present: forceMount || context.open, children: ({ present }) => (0, import_jsx_runtime4.jsx)(CollapsibleContentImpl, { ...contentProps, ref: forwardedRef, present }) });
   }
 );
 CollapsibleContent.displayName = CONTENT_NAME;
-var CollapsibleContentImpl = React11.forwardRef((props, forwardedRef) => {
+var CollapsibleContentImpl = React3.forwardRef((props, forwardedRef) => {
   const { __scopeCollapsible, present, children, ...contentProps } = props;
   const context = useCollapsibleContext(CONTENT_NAME, __scopeCollapsible);
-  const [isPresent, setIsPresent] = React11.useState(present);
-  const ref = React11.useRef(null);
+  const [isPresent, setIsPresent] = React3.useState(present);
+  const ref = React3.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, ref);
-  const heightRef = React11.useRef(0);
+  const heightRef = React3.useRef(0);
   const height = heightRef.current;
-  const widthRef = React11.useRef(0);
+  const widthRef = React3.useRef(0);
   const width = widthRef.current;
   const isOpen = context.open || isPresent;
-  const isMountAnimationPreventedRef = React11.useRef(isOpen);
-  const originalStylesRef = React11.useRef(void 0);
-  React11.useEffect(() => {
+  const isMountAnimationPreventedRef = React3.useRef(isOpen);
+  const originalStylesRef = React3.useRef(void 0);
+  React3.useEffect(() => {
     const rAF = requestAnimationFrame(() => isMountAnimationPreventedRef.current = false);
     return () => cancelAnimationFrame(rAF);
   }, []);
@@ -729,7 +302,7 @@ var CollapsibleContentImpl = React11.forwardRef((props, forwardedRef) => {
       setIsPresent(present);
     }
   }, [context.open, present]);
-  return (0, import_jsx_runtime7.jsx)(
+  return (0, import_jsx_runtime4.jsx)(
     Primitive.div,
     {
       "data-state": getState(context.open),
@@ -755,16 +328,16 @@ var Trigger = CollapsibleTrigger;
 var Content = CollapsibleContent;
 
 // node_modules/@radix-ui/react-direction/dist/index.mjs
-var React12 = __toESM(require_react(), 1);
-var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
-var DirectionContext = React12.createContext(void 0);
+var React4 = __toESM(require_react(), 1);
+var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
+var DirectionContext = React4.createContext(void 0);
 function useDirection(localDir) {
-  const globalDir = React12.useContext(DirectionContext);
+  const globalDir = React4.useContext(DirectionContext);
   return localDir || globalDir || "ltr";
 }
 
 // node_modules/@radix-ui/react-accordion/dist/index.mjs
-var import_jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
 var ACCORDION_NAME = "Accordion";
 var ACCORDION_KEYS = ["Home", "End", "ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight"];
 var [Collection, useCollection, createCollectionScope] = createCollection(ACCORDION_NAME);
@@ -778,7 +351,7 @@ var Accordion = import_react3.default.forwardRef(
     const { type, ...accordionProps } = props;
     const singleProps = accordionProps;
     const multipleProps = accordionProps;
-    return (0, import_jsx_runtime9.jsx)(Collection.Provider, { scope: props.__scopeAccordion, children: type === "multiple" ? (0, import_jsx_runtime9.jsx)(AccordionImplMultiple, { ...multipleProps, ref: forwardedRef }) : (0, import_jsx_runtime9.jsx)(AccordionImplSingle, { ...singleProps, ref: forwardedRef }) });
+    return (0, import_jsx_runtime6.jsx)(Collection.Provider, { scope: props.__scopeAccordion, children: type === "multiple" ? (0, import_jsx_runtime6.jsx)(AccordionImplMultiple, { ...multipleProps, ref: forwardedRef }) : (0, import_jsx_runtime6.jsx)(AccordionImplSingle, { ...singleProps, ref: forwardedRef }) });
   }
 );
 Accordion.displayName = ACCORDION_NAME;
@@ -803,14 +376,14 @@ var AccordionImplSingle = import_react3.default.forwardRef(
       onChange: onValueChange,
       caller: ACCORDION_NAME
     });
-    return (0, import_jsx_runtime9.jsx)(
+    return (0, import_jsx_runtime6.jsx)(
       AccordionValueProvider,
       {
         scope: props.__scopeAccordion,
         value: import_react3.default.useMemo(() => value ? [value] : [], [value]),
         onItemOpen: setValue,
         onItemClose: import_react3.default.useCallback(() => collapsible && setValue(""), [collapsible, setValue]),
-        children: (0, import_jsx_runtime9.jsx)(AccordionCollapsibleProvider, { scope: props.__scopeAccordion, collapsible, children: (0, import_jsx_runtime9.jsx)(AccordionImpl, { ...accordionSingleProps, ref: forwardedRef }) })
+        children: (0, import_jsx_runtime6.jsx)(AccordionCollapsibleProvider, { scope: props.__scopeAccordion, collapsible, children: (0, import_jsx_runtime6.jsx)(AccordionImpl, { ...accordionSingleProps, ref: forwardedRef }) })
       }
     );
   }
@@ -837,14 +410,14 @@ var AccordionImplMultiple = import_react3.default.forwardRef((props, forwardedRe
     (itemValue) => setValue((prevValue = []) => prevValue.filter((value2) => value2 !== itemValue)),
     [setValue]
   );
-  return (0, import_jsx_runtime9.jsx)(
+  return (0, import_jsx_runtime6.jsx)(
     AccordionValueProvider,
     {
       scope: props.__scopeAccordion,
       value,
       onItemOpen: handleItemOpen,
       onItemClose: handleItemClose,
-      children: (0, import_jsx_runtime9.jsx)(AccordionCollapsibleProvider, { scope: props.__scopeAccordion, collapsible: true, children: (0, import_jsx_runtime9.jsx)(AccordionImpl, { ...accordionMultipleProps, ref: forwardedRef }) })
+      children: (0, import_jsx_runtime6.jsx)(AccordionCollapsibleProvider, { scope: props.__scopeAccordion, collapsible: true, children: (0, import_jsx_runtime6.jsx)(AccordionImpl, { ...accordionMultipleProps, ref: forwardedRef }) })
     }
   );
 });
@@ -923,14 +496,14 @@ var AccordionImpl = import_react3.default.forwardRef(
       const clampedIndex = nextIndex % triggerCount;
       (_a = triggerCollection[clampedIndex].ref.current) == null ? void 0 : _a.focus();
     });
-    return (0, import_jsx_runtime9.jsx)(
+    return (0, import_jsx_runtime6.jsx)(
       AccordionImplProvider,
       {
         scope: __scopeAccordion,
         disabled,
         direction: dir,
         orientation,
-        children: (0, import_jsx_runtime9.jsx)(Collection.Slot, { scope: __scopeAccordion, children: (0, import_jsx_runtime9.jsx)(
+        children: (0, import_jsx_runtime6.jsx)(Collection.Slot, { scope: __scopeAccordion, children: (0, import_jsx_runtime6.jsx)(
           Primitive.div,
           {
             ...accordionProps,
@@ -954,14 +527,14 @@ var AccordionItem = import_react3.default.forwardRef(
     const triggerId = useId();
     const open = value && valueContext.value.includes(value) || false;
     const disabled = accordionContext.disabled || props.disabled;
-    return (0, import_jsx_runtime9.jsx)(
+    return (0, import_jsx_runtime6.jsx)(
       AccordionItemProvider,
       {
         scope: __scopeAccordion,
         open,
         disabled,
         triggerId,
-        children: (0, import_jsx_runtime9.jsx)(
+        children: (0, import_jsx_runtime6.jsx)(
           Root,
           {
             "data-orientation": accordionContext.orientation,
@@ -991,7 +564,7 @@ var AccordionHeader = import_react3.default.forwardRef(
     const { __scopeAccordion, ...headerProps } = props;
     const accordionContext = useAccordionContext(ACCORDION_NAME, __scopeAccordion);
     const itemContext = useAccordionItemContext(HEADER_NAME, __scopeAccordion);
-    return (0, import_jsx_runtime9.jsx)(
+    return (0, import_jsx_runtime6.jsx)(
       Primitive.h3,
       {
         "data-orientation": accordionContext.orientation,
@@ -1012,7 +585,7 @@ var AccordionTrigger = import_react3.default.forwardRef(
     const itemContext = useAccordionItemContext(TRIGGER_NAME2, __scopeAccordion);
     const collapsibleContext = useAccordionCollapsibleContext(TRIGGER_NAME2, __scopeAccordion);
     const collapsibleScope = useCollapsibleScope(__scopeAccordion);
-    return (0, import_jsx_runtime9.jsx)(Collection.ItemSlot, { scope: __scopeAccordion, children: (0, import_jsx_runtime9.jsx)(
+    return (0, import_jsx_runtime6.jsx)(Collection.ItemSlot, { scope: __scopeAccordion, children: (0, import_jsx_runtime6.jsx)(
       Trigger,
       {
         "aria-disabled": itemContext.open && !collapsibleContext.collapsible || void 0,
@@ -1033,7 +606,7 @@ var AccordionContent = import_react3.default.forwardRef(
     const accordionContext = useAccordionContext(ACCORDION_NAME, __scopeAccordion);
     const itemContext = useAccordionItemContext(CONTENT_NAME2, __scopeAccordion);
     const collapsibleScope = useCollapsibleScope(__scopeAccordion);
-    return (0, import_jsx_runtime9.jsx)(
+    return (0, import_jsx_runtime6.jsx)(
       Content,
       {
         role: "region",
