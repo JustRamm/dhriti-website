@@ -85,10 +85,12 @@ function App() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <a href="#home" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Home</a>
-              <a href="#why" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Why Dhriti</a>
-              <a href="#objectives" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Objectives</a>
+              <a href="#why" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">About</a>
               <a href="#activities" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Activities</a>
-              <a href="#partnership" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Partnership</a>
+              <a href="#speakers" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Speakers</a>
+              <a href="#venue" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Venue</a>
+              <a href="#gallery" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Gallery</a>
+              <a href="#partnership" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Partners</a>
             </div>
 
             {/* Mobile Navigation */}
@@ -102,10 +104,12 @@ function App() {
                 <SheetContent className="bg-[#800020] border-l border-[#D4AF37]/20">
                   <div className="flex flex-col gap-6 mt-10">
                     <a href="#home" className="text-xl text-white font-medium hover:text-[#D4AF37]">Home</a>
-                    <a href="#why" className="text-xl text-white font-medium hover:text-[#D4AF37]">Why Dhriti</a>
-                    <a href="#objectives" className="text-xl text-white font-medium hover:text-[#D4AF37]">Objectives</a>
+                    <a href="#why" className="text-xl text-white font-medium hover:text-[#D4AF37]">About</a>
                     <a href="#activities" className="text-xl text-white font-medium hover:text-[#D4AF37]">Activities</a>
-                    <a href="#partnership" className="text-xl text-white font-medium hover:text-[#D4AF37]">Partnership</a>
+                    <a href="#speakers" className="text-xl text-white font-medium hover:text-[#D4AF37]">Speakers</a>
+                    <a href="#venue" className="text-xl text-white font-medium hover:text-[#D4AF37]">Venue</a>
+                    <a href="#gallery" className="text-xl text-white font-medium hover:text-[#D4AF37]">Gallery</a>
+                    <a href="#partnership" className="text-xl text-white font-medium hover:text-[#D4AF37]">Partners</a>
                   </div>
                 </SheetContent>
               </Sheet>
@@ -116,7 +120,7 @@ function App() {
 
       <main className="w-full pt-16">
         {/* Hero Section */}
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#800020] via-[#A0153E] to-[#5C0120]">
+        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#800020] via-[#A0153E] to-[#5C0120]">
           {/* Kerala Pattern Background */}
           <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -238,30 +242,17 @@ function App() {
               </div>
 
               {/* Countdown Timer */}
-              <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-8">
-                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
-                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
-                    {timeLeft.days}
-                  </span>
-                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Days</span>
-                </div>
-                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
-                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
-                    {timeLeft.hours}
-                  </span>
-                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Hours</span>
-                </div>
-                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
-                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
-                    {timeLeft.minutes}
-                  </span>
-                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Mins</span>
-                </div>
-                <div className="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 w-24 md:w-32 border border-[#D4AF37]/30">
-                  <span className="text-3xl md:text-5xl font-bold text-white tabular-nums drop-shadow-lg">
-                    {timeLeft.seconds}
-                  </span>
-                  <span className="text-[#D4AF37] text-xs md:text-sm font-medium uppercase tracking-widest mt-1">Secs</span>
+              <div className="flex justify-center mt-10">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
+                  <div className="relative bg-black/30 backdrop-blur-md border border-[#D4AF37]/40 px-8 py-4 rounded-full flex items-baseline gap-3 shadow-2xl">
+                    <span className="text-5xl md:text-7xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                      {timeLeft.days}
+                    </span>
+                    <span className="text-[#D4AF37] text-xl md:text-2xl font-medium uppercase tracking-widest">
+                      Days To Go
+                    </span>
+                  </div>
                 </div>
               </div>
 
