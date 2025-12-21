@@ -1,9 +1,9 @@
 import {
-  require_react_dom
-} from "./chunk-HQYTDYU2.js";
-import {
   createSlot
 } from "./chunk-KVZYVHLH.js";
+import {
+  require_react_dom
+} from "./chunk-HQYTDYU2.js";
 import "./chunk-USCSQX53.js";
 import {
   require_jsx_runtime

@@ -36,8 +36,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      next: path.resolve(__dirname, "./src/components/next"),
-      "next-themes": path.resolve(__dirname, "./src/next-themes.tsx"),
     },
   },
 });
