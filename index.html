@@ -3,7 +3,53 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/mascot.svg" />
+  <link rel="icon" type="image/svg+xml" id="dynamic-favicon" href="/mascot.svg" />
+  <script>
+    // Animate Favicon - Mascot Flying with Glow
+    (function () {
+      const favicon = document.getElementById('dynamic-favicon');
+      const canvas = document.createElement('canvas');
+      // Maximize resolution for retina displays
+      canvas.width = 128;
+      canvas.height = 128;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = '/mascot.svg';
+
+      let frame = 0;
+
+      img.onload = () => {
+        setInterval(() => {
+          if (!favicon) return;
+
+          ctx.clearRect(0, 0, 128, 128);
+          ctx.save();
+
+          // Glow Effect
+          ctx.shadowColor = '#FFD700';
+          ctx.shadowBlur = 15;
+
+          // Center and Zoom
+          ctx.translate(64, 64);
+          // Zoom in by 1.3x to fill the square completely
+          ctx.scale(1.3, 1.3);
+
+          // Flapping Animation (Scale X)
+          // Smoother 30fps animation
+          const scaleX = 0.8 + 0.2 * Math.sin(frame * 0.05);
+          ctx.scale(scaleX, 1);
+
+          // Draw image centered
+          ctx.drawImage(img, -64, -64, 128, 128);
+
+          ctx.restore();
+
+          frame++;
+          favicon.href = canvas.toDataURL('image/png');
+        }, 33);
+      };
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dhriti</title>
   <meta name="description"

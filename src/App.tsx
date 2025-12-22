@@ -35,6 +35,8 @@ import { ButterflyBackground } from "@/components/ButterflyBackground";
 
 function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [selectedSpeaker, setSelectedSpeaker] = useState<{ name: string; role: string; topic: string; image: string; bio: string } | null>(null);
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -121,8 +123,8 @@ function App() {
             <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
-                    <Menu className="w-6 h-6" />
+                  <Button variant="ghost" className="w-12 h-12 p-0 text-white hover:bg-white/10">
+                    <Menu className="w-8 h-8" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="bg-gradient-to-b from-[#800020]/90 to-[#4a0013]/90 backdrop-blur-md border-l border-[#D4AF37]/30 text-white p-0">
@@ -200,24 +202,23 @@ function App() {
       <main className="w-full pt-0 md:pt-16">
         {/* Hero Section */}
         <section id="home" className="relative min-h-[100dvh] md:h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#800020] via-[#A0153E] to-[#5C0120]">
-          {/* Kerala Pattern Background */}
-          <motion.div className="absolute inset-0 opacity-10" style={{ y: y1 }}>
+          {/* Mental Awareness Pattern Background - Neural Network / Connection */}
+          <motion.div className="absolute inset-0 opacity-15" style={{ y: y1 }}>
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <pattern id="kerala-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                  <circle cx="50" cy="50" r="2" fill="#D4AF37" />
-                  <path d="M50 30 L60 50 L50 70 L40 50 Z" fill="#D4AF37" opacity="0.3" />
-                </pattern>
-                {/* Mandala Pattern */}
-                <pattern id="mandala-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-                  <circle cx="100" cy="100" r="40" stroke="#D4AF37" strokeWidth="1" fill="none" opacity="0.5" />
-                  <path d="M100 60 L110 80 L100 90 L90 80 Z" fill="#D4AF37" opacity="0.4" />
-                  <path d="M100 140 L110 120 L100 110 L90 120 Z" fill="#D4AF37" opacity="0.4" />
-                  <path d="M60 100 L80 110 L90 100 L80 90 Z" fill="#D4AF37" opacity="0.4" />
-                  <path d="M140 100 L120 110 L110 100 L120 90 Z" fill="#D4AF37" opacity="0.4" />
+                <pattern id="mind-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <circle cx="20" cy="20" r="1.5" fill="#D4AF37" opacity="0.6" />
+                  <circle cx="80" cy="80" r="1.5" fill="#D4AF37" opacity="0.6" />
+                  <circle cx="80" cy="20" r="1" fill="#D4AF37" opacity="0.4" />
+                  <circle cx="20" cy="80" r="1" fill="#D4AF37" opacity="0.4" />
+
+                  {/* Connecting Lines */}
+                  <path d="M20 20 L80 80" stroke="#D4AF37" strokeWidth="0.5" opacity="0.2" />
+                  <path d="M80 20 L20 80" stroke="#D4AF37" strokeWidth="0.5" opacity="0.2" />
+                  <path d="M20 20 Q 50 50 80 20" stroke="#D4AF37" strokeWidth="0.5" opacity="0.1" fill="none" />
                 </pattern>
               </defs>
-              <rect width="100%" height="100%" fill="url(#kerala-pattern)" />
+              <rect width="100%" height="100%" fill="url(#mind-pattern)" />
             </svg>
           </motion.div>
 
@@ -228,16 +229,46 @@ function App() {
             </svg>
           </motion.div>
 
-          {/* Elephant Silhouette - Parallax Layer */}
-          {/* Elephant Silhouette - Parallax Layer - NOW VISIBLE */}
+          {/* Mind Bloom Silhouette - Symbolic Head Profile */}
           <motion.div
-            className="absolute top-[15%] left-[-20px] md:top-1/4 md:left-10 opacity-10 block"
-            style={{ x: useTransform(scrollY, [0, 1000], [0, 100]) }}
+            className="absolute top-[10%] -left-[10%] md:top-[15%] md:left-[5%] w-[300px] h-[400px] md:w-[500px] md:h-[600px] pointer-events-none opacity-20 md:opacity-10 mix-blend-overlay"
+            style={{ x: useTransform(scrollY, [0, 400], [0, 50]) }}
           >
-            <svg width="150" height="100" viewBox="0 0 150 100" fill="#D4AF37" className="scale-75 md:scale-100">
-              <path d="M120,70 Q110,60 100,60 L80,60 Q60,60 50,70 Q40,80 40,90 L40,95 L50,95 L50,90 Q50,85 60,85 L70,85 L70,95 L80,95 L80,75 L100,75 Q110,75 115,80 L120,85 Z" opacity="0.8" />
-              <circle cx="115" cy="65" r="2" fill="white" />
-              <path d="M115,70 Q120,80 110,90" stroke="#D4AF37" strokeWidth="2" fill="none" />
+            <svg viewBox="0 0 200 300" className="w-full h-full" fill="none">
+              {/* Abstract Head Profile Trace */}
+              <path d="M60,250 C40,240 30,220 30,180 C30,130 50,80 100,60 C130,50 160,70 170,100 C175,120 170,140 165,150"
+                stroke="#D4AF37" strokeWidth="1" opacity="0.5" fill="none" />
+
+              {/* Neural Roots / Thoughts Blooming */}
+              <path d="M100,60 Q100,30 80,10" stroke="#D4AF37" strokeWidth="0.5" opacity="0.4" />
+              <path d="M100,60 Q120,30 140,20" stroke="#D4AF37" strokeWidth="0.5" opacity="0.4" />
+              <path d="M100,60 Q80,40 60,30" stroke="#D4AF37" strokeWidth="0.5" opacity="0.4" />
+
+              {/* Floating Particles (Thoughts) - Animated */}
+              <circle cx="80" cy="10" r="2" fill="#D4AF37" opacity="0.6">
+                {/* @ts-ignore */}
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="140" cy="20" r="1.5" fill="#D4AF37" opacity="0.5">
+                {/* @ts-ignore */}
+                <animate attributeName="opacity" values="0.5;0;0.5" dur="5s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="60" cy="30" r="2.5" fill="#D4AF37" opacity="0.4">
+                {/* @ts-ignore */}
+                <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite" />
+              </circle>
+
+              {/* Brain/Mind Network inside the head */}
+              <g opacity="0.3">
+                <circle cx="80" cy="120" r="1" fill="#D4AF37" />
+                <circle cx="120" cy="130" r="1" fill="#D4AF37" />
+                <circle cx="100" cy="150" r="1" fill="#D4AF37" />
+                <circle cx="90" cy="100" r="1" fill="#D4AF37" />
+
+                <path d="M80 120 L120 130 L100 150 L80 120" stroke="#D4AF37" strokeWidth="0.5" />
+                <path d="M90 100 L120 130" stroke="#D4AF37" strokeWidth="0.5" />
+                <path d="M90 100 L80 120" stroke="#D4AF37" strokeWidth="0.5" />
+              </g>
             </svg>
           </motion.div>
 
@@ -666,13 +697,22 @@ function App() {
               <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
                 Experience Dhriti
               </h2>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-2">
                 Immersive activities designed to engage, inspire, and transform
               </p>
+              {/* Mobile Scroll Hint */}
+              <motion.p
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: "reverse" }}
+                className="text-sm text-[#D4AF37] font-semibold md:hidden flex items-center justify-center gap-1"
+              >
+                Swipe to explore <span className="text-lg">→</span>
+              </motion.p>
             </motion.div>
 
             {/* Activities Container - Horizontal scroll on mobile, Grid on desktop */}
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 md:mx-0 md:px-0 md:overflow-visible custom-scrollbar scroll-smooth">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 md:mx-0 md:px-0 md:overflow-visible custom-scrollbar scroll-smooth scroll-pl-6">
               {[
                 {
                   image: "/empathy_walk.png",
@@ -711,7 +751,7 @@ function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="min-w-[70vw] md:min-w-0 snap-center"
+                  className="min-w-[70vw] md:min-w-0 snap-start"
                   ref={activity.isSurprise ? setSurpriseBoxRef : undefined}
                 >
                   <motion.div
@@ -873,9 +913,10 @@ function App() {
                 ].map((speaker, index) => (
                   <div
                     key={index}
-                    className="min-w-[70vw] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 snap-center"
+                    onClick={() => setSelectedSpeaker({ ...speaker, bio: "A visionary leader dedicated to mental wellness and community empowerment. With years of experience in their field, they bring unique insights and practical tools to help you navigate life's challenges." })}
+                    className="min-w-[70vw] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 snap-center cursor-pointer active:scale-95 transition-transform"
                   >
-                    <div className="h-64 overflow-hidden">
+                    <div className="h-64 overflow-hidden relative">
                       <img
                         src={speaker.image}
                         alt={speaker.name}
@@ -935,15 +976,19 @@ function App() {
                     ].map((speaker, index) => (
                       <div
                         key={index}
-                        className="w-[300px] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 hover:border-[#D4AF37] transition-all duration-300 group-hover:pause"
+                        onClick={() => setSelectedSpeaker({ ...speaker, bio: "A visionary leader dedicated to mental wellness and community empowerment. With years of experience in their field, they bring unique insights and practical tools to help you navigate life's challenges." })}
+                        className="w-[300px] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 hover:border-[#D4AF37] transition-all duration-300 group-hover:pause cursor-pointer hover:shadow-2xl"
                       >
-                        <div className="h-64 overflow-hidden">
+                        <div className="h-64 overflow-hidden relative group/image">
                           <img
                             src={speaker.image}
                             alt={speaker.name}
                             className="w-full h-full object-cover transition-transform duration-500 md:hover:scale-110"
                             loading="lazy"
                           />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span className="text-white font-medium border border-white/50 px-4 py-2 rounded-full backdrop-blur-sm">View Bio</span>
+                          </div>
                         </div>
                         <div className="p-6 text-center">
                           <h3 className="text-xl font-bold text-[#800020] mb-1">{speaker.name}</h3>
@@ -959,6 +1004,74 @@ function App() {
               </motion.div>
             </div>
           </div>
+
+          {/* Speaker Bio Modal */}
+          <AnimatePresence>
+            {selectedSpeaker && (
+              <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setSelectedSpeaker(null)}
+                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                  className="bg-white rounded-3xl overflow-hidden max-w-4xl w-full shadow-2xl relative z-10 flex flex-col md:flex-row"
+                >
+                  <button
+                    onClick={() => setSelectedSpeaker(null)}
+                    className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors z-20"
+                  >
+                    <svg className="w-6 h-6 text-[#800020]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+
+                  {/* Modal Image */}
+                  <div className="w-full md:w-2/5 h-64 md:h-auto relative">
+                    <img
+                      src={selectedSpeaker.image}
+                      alt={selectedSpeaker.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 via-transparent to-transparent md:bg-gradient-to-r" />
+                    <div className="absolute bottom-4 left-4 text-white md:hidden">
+                      <h3 className="text-2xl font-bold">{selectedSpeaker.name}</h3>
+                      <p className="text-[#D4AF37] font-medium">{selectedSpeaker.role}</p>
+                    </div>
+                  </div>
+
+                  {/* Modal Content */}
+                  <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center bg-white">
+                    <div className="hidden md:block mb-6">
+                      <h3 className="text-4xl font-bold text-[#800020] mb-2">{selectedSpeaker.name}</h3>
+                      <p className="text-xl text-[#D4AF37] font-medium tracking-wide uppercase">{selectedSpeaker.role}</p>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Topic</h4>
+                        <p className="text-xl text-[#800020] font-serif italic">"{selectedSpeaker.topic}"</p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">About</h4>
+                        <p className="text-gray-600 leading-relaxed text-lg">
+                          {selectedSpeaker.bio}
+                        </p>
+                      </div>
+
+                      {/* Actions removed as per request */}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
         </section>
 
         {/* Venue Section */}
