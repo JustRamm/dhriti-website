@@ -755,15 +755,15 @@ function App() {
             </motion.div>
 
             {/* Activities Container - Horizontal scroll on mobile, Grid on desktop */}
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 md:mx-0 md:px-0 custom-scrollbar scroll-smooth">
               {[
                 {
-                  image: "/empathy_walk.jpeg",
+                  image: "/empathy_walk.png",
                   title: "Empathy Walk",
                   description: "Step into someone else's shoes through guided journeys that build understanding and compassion for diverse mental health experiences."
                 },
                 {
-                  image: "/voice_worries.jpeg",
+                  image: "/voice_worries.png",
                   title: "Voice Your Worries",
                   description: "Anonymous sharing spaces where you can express concerns freely, realizing you're not alone in your struggles."
                 },
@@ -773,7 +773,7 @@ function App() {
                   description: "Express emotions through creative mediums - painting, sculpting, and crafting your way to self-discovery and healing."
                 },
                 {
-                  image: "/wellness_games.jpeg",
+                  image: "/wellness_games.png",
                   title: "Mental Health Wellness Games",
                   description: "Gamified learning experiences that make understanding mental health fun, interactive, and accessible to all ages."
                 },
@@ -789,7 +789,7 @@ function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="min-w-[85vw] md:min-w-0 snap-center"
+                  className="min-w-[70vw] md:min-w-0 snap-center"
                 >
                   <motion.div
                     whileHover={{ scale: 1.05 }}
@@ -862,7 +862,7 @@ function App() {
 
             <div className="flex overflow-hidden group">
               {/* Mobile: Horizontal Manual Scroll */}
-              <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 pb-8 w-full scrollbar-hide">
+              <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 pb-8 w-full custom-scrollbar scroll-smooth">
                 {[
                   {
                     image: "/speaker_psychologist.png",
@@ -891,7 +891,7 @@ function App() {
                 ].map((speaker, index) => (
                   <div
                     key={index}
-                    className="min-w-[85vw] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 snap-center"
+                    className="min-w-[70vw] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 snap-center"
                   >
                     <div className="h-64 overflow-hidden">
                       <img
@@ -1081,8 +1081,8 @@ function App() {
               </p>
             </motion.div>
 
-            {/* Gallery Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+            {/* Gallery Grid/Slider */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:grid md:grid-cols-3 md:gap-6 md:pb-0 md:mx-0 md:px-0 custom-scrollbar scroll-smooth">
               {[
                 { src: "/gallery1.jpeg", alt: "Community Workshop", caption: "Community Workshops" },
                 { src: "/gallery2.jpeg", alt: "Art Therapy", caption: "Expressive Art Therapy" },
@@ -1091,16 +1091,35 @@ function App() {
                 <motion.div
                   key={index}
                   whileHover={{ y: -10 }}
-                  className="relative group overflow-hidden rounded-2xl shadow-lg aspect-[4/3]"
+                  className="
+                    snap-center shrink-0 
+                    min-w-[70vw] md:min-w-0 
+                    bg-white md:bg-transparent
+                    rounded-2xl md:rounded-2xl
+                    shadow-md md:shadow-lg
+                    border border-[#D4AF37]/20 md:border-0
+                    flex flex-col md:block
+                    relative md:group md:overflow-hidden md:aspect-[4/3]
+                  "
                 >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-white font-semibold text-lg">{img.caption}</p>
+                  <div className="h-48 md:h-full w-full overflow-hidden rounded-t-2xl md:rounded-2xl">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="
+                    p-4 text-center md:absolute md:inset-0 md:bg-gradient-to-t md:from-black/80 md:via-transparent md:to-transparent md:flex md:items-end md:p-6 md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-300 md:text-left
+                  ">
+                    <p className="
+                      font-semibold text-lg tracking-wide
+                      text-[#800020] md:text-[#D4AF37]
+                    ">
+                      {img.caption}
+                    </p>
                   </div>
                 </motion.div>
               ))}
