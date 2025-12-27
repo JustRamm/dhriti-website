@@ -14,6 +14,14 @@ This is the official website for **Dhriti**, Kerala's first community-led mental
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **Components:** [shadcn/ui](https://ui.shadcn.com/) (Button, Card, Accordion, Sheet, etc.)
 
+## ✨ Features
+
+- **Interactive Gallery:** Visual storytelling with parallax scrolling and immersive animations.
+- **Activity Showcase:** Detailed views of mental health activities, workshops, and events.
+- **Community Voices:** Testimonials and stories from founders and community members.
+- **Responsive Design:** Fully optimized experience across all devices, including mobile landscape users.
+- **Smooth Animations:** Powered by Framer Motion for a premium feel.
+
 ## ⚙️ Prerequisites
 
 Ensure you have the following installed on your machine:
