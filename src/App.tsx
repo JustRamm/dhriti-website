@@ -47,7 +47,7 @@ function App() {
 
       <Navbar />
 
-      <main>
+      <main className="relative">
         <HeroSection />
         <WhySection />
         <ObjectivesSection />

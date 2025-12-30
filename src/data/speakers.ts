@@ -7,18 +7,18 @@ export const SPEAKERS_DATA = [
         bio: "Based in Ernakulam, Kalamassery, Fathima Beevi is an experienced psychologist dedicated to mental wellness. Her session on February 14th focuses on the transformative power of self-love and building resilience."
     },
     {
-        image: "/images/speakers/speaker_activist.png",
-        name: "Speaker Name",
-        role: "Social Activist",
-        topic: "Empowering Communities",
-        bio: "An advocate for social change and community mental health awareness."
+        image: "/images/speakers/speaker_laughter.png",
+        name: "Smita Benny",
+        role: "Yoga Teacher & Laughter Ambassador",
+        topic: "Laughter Yoga & Hatha Yoga",
+        bio: "A passionate certified 'Yoga teacher' teaching Hatha yoga since 7 years. Effectively imparting yoga as a way of life through teachings in person and in Group (online and offline) both India and abroad. Volunteer for NGO 'TSS' (Team Spreading Smiles) Mumbai conducting online yoga sessions since 4 years. Living and spreading laughter as a Laughter Yoga Leader and Laughter Ambassador. Commerce graduate with Business Management from Mumbai University with corporate work experience in administration and recruitment over 10 years."
     },
     {
-        image: "/images/speakers/speaker_author.png",
-        name: "Speaker Name",
-        role: "Author",
-        topic: "Healing through Words",
-        bio: "Exploring the intersections of literature, personal narrative, and psychological well-being."
+        image: "/images/activities/vanitha_police.png",
+        name: "Kerala Vanitha Police Team",
+        role: "Safety Educators",
+        topic: "Empowerment through Self-Defence",
+        bio: "A dedicated team from the Kerala Police Vanitha Wing, including ASI Rethnamani T.L., ASI Lissy Mathai, and Civil Police Officers Syama and Jancy. They specialize in empowering women through practical self-defence training, situational awareness, and safety education."
     },
     {
         image: "/images/speakers/speaker_dancer.png",

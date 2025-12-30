@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     wrapperClassName?: string;
+    loading?: "lazy" | "eager";
 }
 
-export function LazyImage({ src, alt, className, wrapperClassName, onLoad, ...props }: LazyImageProps) {
+export function LazyImage({ src, alt, className, wrapperClassName, onLoad, loading = "lazy", ...props }: LazyImageProps) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
@@ -49,7 +50,7 @@ export function LazyImage({ src, alt, className, wrapperClassName, onLoad, ...pr
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 className={cn("w-full h-full object-cover", className)}
-                loading="lazy"
+                loading={loading}
                 decoding="async"
                 {...props}
             />

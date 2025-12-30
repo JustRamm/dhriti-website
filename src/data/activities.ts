@@ -78,7 +78,7 @@ export const ACTIVITIES_DATA = [
         description: "Combine improved breathing with the contagiousness of laughter for an instant mood boost.",
         timing: "4:30 PM - 5:00 PM",
         instruction: "Join in with an open heart.",
-        speaker: "Yoga Instructors",
+        speaker: "Smita Benny",
         image: "/images/activities/laughter.png"
     },
     {
@@ -88,6 +88,14 @@ export const ACTIVITIES_DATA = [
         instruction: "Costumes and props available.",
         speaker: "Creative Team",
         image: "/images/activities/cosplay.png"
+    },
+    {
+        title: "Vanitha Police Self-Defence",
+        description: "A vital self-defence workshop empoweringly led by women officers of the Kerala Police, teaching practical safety techniques and situational awareness.",
+        timing: "Special Workshop",
+        instruction: "Open to all women participants. Wear comfortable attire.",
+        speaker: "Rethnamani.T.L (ASI), Lissy Mathai (ASI), Syama (CPO) & Jancy (CPO)",
+        image: "/images/activities/vanitha_police.png"
     },
     {
         title: "Standup Comedy",

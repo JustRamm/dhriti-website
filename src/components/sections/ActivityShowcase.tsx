@@ -184,6 +184,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                                                     alt={displayActivity.title}
                                                     className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
                                                     wrapperClassName="w-full h-full"
+                                                    loading="eager"
                                                 />
                                             )}
 

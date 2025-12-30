@@ -1,11 +1,13 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { LazyImage } from "@/components/ui/LazyImage";
 import { Card, CardContent } from "@/components/ui/card";
 import { Quote, Sparkles, MoveRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function GallerySection() {
+    const [selectedItem, setSelectedItem] = useState<{ src: string; alt: string; role?: string } | null>(null);
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -17,9 +19,12 @@ export function GallerySection() {
     const y3 = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
     const galleryImages = [
-        { src: "/images/gallery/gallery1.jpeg", alt: "Community Workshop", caption: "Community Connection", desc: "Building bridges through shared experiences" },
-        { src: "/images/gallery/gallery2.jpeg", alt: "Art Therapy", caption: "Expressive Arts", desc: "Healing through creativity and color" },
-        { src: "/images/gallery/gallery3.jpeg", alt: "Dance Movement", caption: "Movement Therapy", desc: "Finding freedom in rhythm" }
+        { src: "/images/activities/concert.png", alt: "Music Festival", caption: "Healing Melodies", desc: "Soul-stirring performances that uplift the heart." },
+        { src: "/images/activities/art_therapy.png", alt: "Art Therapy Session", caption: "Creative Expression", desc: "Finding peace through colors and textures." },
+        { src: "/images/activities/laughing.png", alt: "Yoga Community", caption: "Collective Joy", desc: "Building resilience through shared laughter." },
+        { src: "/images/gallery/gallery1.jpeg", alt: "Community Workshop", caption: "Safe Circles", desc: "Conversations that break the silence." },
+        { src: "/images/gallery/gallery2.jpeg", alt: "Wellness Activities", caption: "Mindful Moments", desc: "Practicing the art of being present." },
+        { src: "/images/gallery/gallery3.jpeg", alt: "Festival Gathering", caption: "Dhriti Experience", desc: "A movement for mental wellness in Kerala." }
     ];
 
     return (
@@ -73,6 +78,7 @@ export function GallerySection() {
                                         alt={img.alt}
                                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                         wrapperClassName="w-full h-full"
+                                        loading="eager"
                                     />
 
                                     {/* Gradient Overlay */}
@@ -134,22 +140,32 @@ export function GallerySection() {
                             {
                                 quote: "We built this platform not just to raise awareness, but to foster deep, lasting healing.",
                                 author: "Maya Menon",
-                                role: "Founder"
+                                role: "Founder",
+                                color: "bg-rose-500"
                             },
                             {
                                 quote: "A revolutionary concept that removes the fear and shame associated with seeking help.",
                                 author: "Sreela Menon",
-                                role: "Co-Founder"
+                                role: "Co-Founder",
+                                color: "bg-amber-500"
                             },
                             {
-                                quote: "Visual storytelling has the power to heal. Every design in Dhriti is crafted to evoke peace and hope.",
+                                quote: "Shed what weighs you down like a caterpillar, and fly high like a butterfly",
                                 author: "Jessica John",
-                                role: "Lead Graphic Designer"
+                                role: "Lead Graphic Designer",
+                                image: "/images/gallery/jessica.jpeg"
                             },
                             {
                                 quote: "Technology bridges the gap between intention and impact—Dhriti is that digital bridge for mental health.",
                                 author: "Abiram T Bijoy",
-                                role: "Technical Lead"
+                                role: "Technical Lead",
+                                image: "/images/gallery/abiram.jpeg"
+                            },
+                            {
+                                quote: "At Dhriti, we believe that every story deserves a safe harbor and every heart deserves a chance to bloom.",
+                                author: "Nakshatra P Nair",
+                                role: "Content & Editorial Lead",
+                                image: "/images/gallery/nakshatra.jpeg"
                             }
                         ].map((testimonial, index) => (
                             <motion.div
@@ -180,9 +196,22 @@ export function GallerySection() {
                                         </p>
 
                                         <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                                            <div className="w-10 h-10 rounded-full bg-[#800020] flex items-center justify-center text-white font-serif font-bold text-sm shadow-md">
-                                                {testimonial.author[0]}
-                                            </div>
+                                            {testimonial.image ? (
+                                                <div
+                                                    className="w-10 h-10 rounded-full overflow-hidden shadow-md border border-[#D4AF37]/20 cursor-pointer hover:scale-110 transition-transform"
+                                                    onClick={() => setSelectedItem({ src: testimonial.image!, alt: testimonial.author, role: testimonial.role })}
+                                                >
+                                                    <img
+                                                        src={testimonial.image}
+                                                        alt={testimonial.author}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white font-serif font-bold text-sm shadow-md", (testimonial as any).color || "bg-[#800020]")}>
+                                                    {testimonial.author[0]}
+                                                </div>
+                                            )}
                                             <div>
                                                 <h4 className="font-bold text-[#800020] text-sm">{testimonial.author}</h4>
                                                 <p className="text-xs text-gray-400 font-medium tracking-wide uppercase">{testimonial.role}</p>
@@ -201,6 +230,69 @@ export function GallerySection() {
                     </div>
                 </div>
             </div>
+            {/* Image Popup Modal */}
+            <AnimatePresence>
+                {selectedItem && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedItem(null)}
+                            className="absolute inset-0 bg-black/40 backdrop-blur-md cursor-pointer"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="relative max-w-md w-full flex flex-col items-center z-10"
+                        >
+                            {/* Decorative Gold Frame - Subtle */}
+                            <div className="absolute -inset-1 border border-[#D4AF37]/30 rounded-[2rem] -z-10" />
+
+                            <div className="relative w-full overflow-hidden rounded-[1.8rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-[#800020]/10 bg-white">
+                                <button
+                                    onClick={() => setSelectedItem(null)}
+                                    className="absolute top-4 right-4 p-2 bg-black/5 hover:bg-[#800020] hover:text-white rounded-full transition-all duration-300 z-20"
+                                >
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+
+                                <div className="aspect-square w-full bg-gray-50">
+                                    <img
+                                        src={selectedItem.src}
+                                        alt={selectedItem.alt}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+
+                                <div className="p-6 text-center bg-white">
+                                    <h4 className="text-2xl font-serif font-bold text-[#800020] mb-1">
+                                        {selectedItem.alt}
+                                    </h4>
+                                    {selectedItem.role && (
+                                        <p className="text-[#D4AF37] font-bold tracking-widest uppercase text-xs">
+                                            {selectedItem.role}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Bottom Label for Lightbox Feel */}
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                                className="mt-4 text-white/40 font-medium text-[10px] tracking-[0.2em] uppercase"
+                            >
+                                Voices of Dhriti Experience
+                            </motion.p>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }

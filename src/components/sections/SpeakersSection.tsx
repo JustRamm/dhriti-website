@@ -62,10 +62,10 @@ export function SpeakersSection() {
                                 <LazyImage
                                     src={speaker.image}
                                     alt={speaker.name}
-                                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110 md:grayscale md:group-hover:grayscale-0"
+                                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
                                     wrapperClassName="w-full h-full"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-40 transition-opacity duration-300" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 to-transparent opacity-80 md:opacity-40 md:group-hover:opacity-30 transition-opacity duration-300" />
 
                                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-4 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-transform duration-300">
                                     <p className="text-[#D4AF37] font-medium text-sm md:text-xs uppercase tracking-wider mb-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:delay-75">{speaker.role}</p>
