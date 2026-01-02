@@ -135,16 +135,16 @@ export function GallerySection() {
                     >
                         {[
                             {
-                                quote: "We built this platform not just to raise awareness, but to foster deep, lasting healing.",
+                                quote: "In a world that constantly tests us, emotional resilience is no longer optional—it is essential. Dhriti is our reminder that strength begins within. With Dhriti, we hope to create a space where strength is nurtured, emotions are honoured, and healing feels possible.",
                                 author: "Maya Menon",
                                 role: "Founder",
-                                color: "bg-rose-500"
+                                image: "/images/gallery/maya.jpeg"
                             },
                             {
-                                quote: "A revolutionary concept that removes the fear and shame associated with seeking help.",
+                                quote: "Dhriti is not just a festival—it is a movement to normalise emotions, strengthen minds, and remind people that asking for support is also a form of courage. This festival was born from the belief that resilience is not about being unshaken, but about learning how to stand again after every fall.",
                                 author: "Sreela Menon",
                                 role: "Co-Founder",
-                                color: "bg-amber-500"
+                                image: "/images/gallery/sreela.jpeg"
                             },
                             {
                                 quote: "Shed what weighs you down like a caterpillar, and fly high like a butterfly",

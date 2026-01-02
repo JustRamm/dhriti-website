@@ -2,9 +2,9 @@ export const SPEAKERS_DATA = [
     {
         image: "/images/speakers/speaker_psychologist.png",
         name: "Fathima Beevi",
-        role: "Psychologist",
-        topic: "Self Love & Resilience",
-        bio: "Based in Ernakulam, Kalamassery, Fathima Beevi is an experienced psychologist dedicated to mental wellness. Her session on February 14th focuses on the transformative power of self-love and building resilience."
+        role: "Comic Artist",
+        topic: "Visual Storytelling & Comic Art",
+        bio: "Based in Ernakulam, Kalamassery, Fathima Beevi is a talented comic artist who uses visual storytelling to explore themes of resilience and self-expression. Her session on February 14th focuses on the power of creative arts in processing emotions and finding one's unique voice."
     },
     {
         image: "/images/speakers/speaker_laughter.png",

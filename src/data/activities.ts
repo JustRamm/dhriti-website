@@ -112,8 +112,8 @@ export const ACTIVITIES_DATA = [
         description: "Create your own stories and heroes through the medium of comics.",
         timing: "Ongoing",
         instruction: "Materials provided.",
-        speaker: "Artists",
-        image: "/images/activities/comic.png"
+        speaker: "Fathima Beevi",
+        image: "/images/speakers/speaker_psychologist.png"
     },
     {
         title: "Bracelet Making",
