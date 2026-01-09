@@ -10,11 +10,27 @@ export const ACTIVITIES_DATA = [
         image: "/images/activities/empathy_walk.png"
     },
     {
+        title: "Art of Meditation",
+        description: "Drithi is focus, determination or steadfastness. It is also courage to go ahead. Drithi aims to resolve the issues in the Society through a psychological approach. Drithi believes that uplifting oneself can happen by making them understand themselves. Drithi is the light of relief. Drithi is the light of hope.",
+        timing: "TBA",
+        instruction: "Experience the power of focus and self-understanding.",
+        speaker: "Dhanya P",
+        image: "/images/speakers/speaker_meditation.jpeg"
+    },
+    {
+        title: "Sound Bath",
+        description: "To me resilience is the strength that supports you from within, helping you stay aligned with your values even when circumstances are challenging. Discipline over motivation.",
+        timing: "TBA",
+        instruction: "Bathe in the healing frequencies.",
+        speaker: "Leanne Ashurst",
+        image: "/images/activities/sound_bath.jpeg"
+    },
+    {
         title: "Dance & Movement Therapy",
         description: "Joyful movement sessions to release stress and find inner rhythm. No dance experience required!",
         timing: "10:00 AM - 11:00 AM",
         instruction: "Wear comfortable clothing.",
-        speaker: "Therapy Team",
+        speaker: "Gayathri Pramod",
         image: "/images/activities/dance_therapy.png"
     },
     {
@@ -24,6 +40,14 @@ export const ACTIVITIES_DATA = [
         instruction: "All materials provided.",
         speaker: "Art Facilitators",
         image: "/images/activities/art_therapy.png"
+    },
+    {
+        title: "Clay Modelling",
+        description: "Shape your thoughts and emotions into tangible forms through the tactile art of clay modelling.",
+        timing: "TBA",
+        instruction: "All materials provided.",
+        speaker: "Karthika Harilal",
+        image: "/images/speakers/speaker_clay.jpeg"
     },
     {
         title: "Sign Language Workshop",
@@ -99,12 +123,12 @@ export const ACTIVITIES_DATA = [
     },
     {
         title: "Standup Comedy",
-        description: "Laughter is the best medicine! A surprise set to lighten your heart.",
+        description: "I’ve never been to a festival for the mind, but I know our mind is the anchor of it all. To bring my wit and perform standup in Kerala's first mental health festival at Fort Kochi on the Valentine's day is an honour. All the best to the curators for doing this fabulous initiative",
         timing: "6:00 PM - 7:00 PM",
         instruction: "Get ready to laugh!",
         isSurprise: true,
-        speaker: "Mystery Guest",
-        image: "/images/activities/comedy.png"
+        speaker: "Sreelakshmi Ushadevi",
+        image: "/images/speakers/speaker_standup.jpeg"
     },
 
     {
@@ -113,14 +137,14 @@ export const ACTIVITIES_DATA = [
         timing: "Ongoing",
         instruction: "Materials provided.",
         speaker: "Fathima Beevi",
-        image: "/images/speakers/speaker_psychologist.png"
+        image: "/images/activities/comic.png"
     },
     {
         title: "Bracelet Making",
         description: "Craft tokens of friendship and reminder of our shared bonds.",
         timing: "Ongoing",
         instruction: "Make one, take one.",
-        speaker: "Volunteers",
+        speaker: "Nakshatra P Nair",
         image: "/images/activities/bracelet.png"
     },
     {

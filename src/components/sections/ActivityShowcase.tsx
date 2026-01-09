@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/ui/LazyImage";
-import { Sparkles, TrendingUp, X, Clock, Mic, Info, CalendarClock } from "lucide-react";
+import { Sparkles, X, Clock, Mic, Info, CalendarClock } from "lucide-react";
 import { ACTIVITIES_DATA, SURPRISE_REVEAL_DATE } from "@/data/activities";
 
 interface ActivityShowcaseProps {
@@ -65,6 +65,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                 {/* Scroll Controls */}
                 <div className="flex justify-end gap-2 mb-4 px-1">
                     <button
+                        type="button"
                         onClick={() => document.getElementById('activities-scroll-container')?.scrollBy({ left: -320, behavior: 'smooth' })}
                         className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors bg-white shadow-sm"
                         aria-label="Scroll left"
@@ -74,6 +75,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                         </svg>
                     </button>
                     <button
+                        type="button"
                         onClick={() => document.getElementById('activities-scroll-container')?.scrollBy({ left: 320, behavior: 'smooth' })}
                         className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors bg-white shadow-sm"
                         aria-label="Scroll right"
@@ -261,8 +263,11 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                                     <p className="text-gray-600 text-sm mt-1">February 14, 2026 • Kochi, Kerala</p>
                                 </div>
                                 <button
+                                    type="button"
                                     onClick={() => setShowTimeline(false)}
                                     className="p-2 bg-black/5 hover:bg-black/10 rounded-full transition-colors"
+                                    aria-label="Close timeline"
+                                    title="Close timeline"
                                 >
                                     <X className="w-6 h-6 text-[#800020]" />
                                 </button>
@@ -346,6 +351,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                             aria-labelledby="activity-title"
                         >
                             <button
+                                type="button"
                                 onClick={() => setSelectedActivity(null)}
                                 className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors z-20"
                                 aria-label="Close modal"

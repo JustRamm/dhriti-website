@@ -1,88 +1,113 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LazyImage } from "@/components/ui/LazyImage";
 import { SPEAKERS_DATA } from "@/data/speakers";
+import { ChevronLeft, ChevronRight, Quote, X } from "lucide-react";
 
 export function SpeakersSection() {
     const [selectedSpeaker, setSelectedSpeaker] = useState<{ name: string; role: string; topic: string; image: string; bio: string } | null>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 350;
+            scrollContainerRef.current.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    };
 
     return (
-        <section id="speakers" className="py-20 md:py-32 bg-[#FAF9F6] overflow-hidden">
-            <div className="container mx-auto px-6 mb-16">
+        <section id="speakers" className="py-24 md:py-32 bg-gradient-to-input from-[#FAF9F6] via-white to-[#FAF9F6] relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#800020 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+
+            <div className="container mx-auto px-6 mb-16 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-center"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-6">
+                    <span className="text-[#D4AF37] font-bold tracking-[0.2em] text-sm uppercase mb-3 block">Our Visionaries</span>
+                    <h2 className="text-5xl md:text-6xl font-black text-[#800020] mb-6 tracking-tight">
                         Voices of Dhriti
                     </h2>
-                    <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                        Meet the visionaries, healers, and artists shaping this movement.
+                    <div className="h-1 w-24 bg-[#D4AF37] mx-auto mb-8 rounded-full"></div>
+                    <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+                        Meet the diverse tapestry of healers, artists, and leaders weaving the story of resilience.
                     </p>
                 </motion.div>
             </div>
 
-            {/* Manual Scroll Carousel */}
-            <div className="relative">
-                {/* Scroll Controls (Desktop only) */}
-                <div className="hidden md:flex justify-end gap-2 container mx-auto px-6 mb-4">
+            {/* Carousel Container */}
+            <div className="relative z-10 group/slider">
+                {/* Navigation Buttons */}
+                <div className="absolute top-1/2 -translate-y-1/2 left-4 z-20 hidden md:block opacity-0 group-hover/slider:opacity-100 transition-opacity duration-500">
                     <button
-                        onClick={() => document.getElementById('speakers-scroll-container')?.scrollBy({ left: -300, behavior: 'smooth' })}
-                        className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors"
+                        onClick={() => scroll('left')}
+                        className="bg-white/80 backdrop-blur-md text-[#800020] p-4 rounded-full shadow-2xl hover:bg-[#800020] hover:text-[#D4AF37] transition-all duration-300 border border-[#800020]/10"
                         aria-label="Scroll left"
                     >
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button
-                        onClick={() => document.getElementById('speakers-scroll-container')?.scrollBy({ left: 300, behavior: 'smooth' })}
-                        className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors"
-                        aria-label="Scroll right"
-                    >
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
+                        <ChevronLeft className="w-6 h-6" />
                     </button>
                 </div>
+                <div className="absolute top-1/2 -translate-y-1/2 right-4 z-20 hidden md:block opacity-0 group-hover/slider:opacity-100 transition-opacity duration-500">
+                    <button
+                        onClick={() => scroll('right')}
+                        className="bg-white/80 backdrop-blur-md text-[#800020] p-4 rounded-full shadow-2xl hover:bg-[#800020] hover:text-[#D4AF37] transition-all duration-300 border border-[#800020]/10"
+                        aria-label="Scroll right"
+                    >
+                        <ChevronRight className="w-6 h-6" />
+                    </button>
+                </div>
+
                 <div
-                    id="speakers-scroll-container"
-                    className="flex overflow-x-auto gap-6 px-6 pb-8 snap-x snap-mandatory scrollbar-hide md:justify-center"
+                    ref={scrollContainerRef}
+                    className="flex overflow-x-auto gap-8 px-6 md:px-12 pb-12 pt-4 snap-x snap-mandatory scrollbar-hide"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     {SPEAKERS_DATA.map((speaker, index) => (
-                        <div
+                        <motion.div
                             key={index}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
                             onClick={() => setSelectedSpeaker(speaker)}
-                            className="w-[280px] md:w-[250px] shrink-0 bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:border-[#D4AF37]/50 transition-all duration-300 cursor-pointer md:hover:shadow-2xl md:hover:-translate-y-1 group snap-center"
+                            className="relative flex-shrink-0 w-[300px] md:w-[340px] h-[500px] snap-center cursor-pointer group rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-[6px] border-white ring-1 ring-gray-100"
                         >
-                            <div className="h-64 md:h-56 overflow-hidden relative">
-                                <LazyImage
-                                    src={speaker.image}
-                                    alt={speaker.name}
-                                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
-                                    wrapperClassName="w-full h-full"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 to-transparent opacity-80 md:opacity-40 md:group-hover:opacity-30 transition-opacity duration-300" />
+                            <LazyImage
+                                src={speaker.image}
+                                alt={speaker.name}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter brightness-[0.9] group-hover:brightness-100"
+                                wrapperClassName="w-full h-full"
+                            />
 
-                                <div className="absolute bottom-0 left-0 w-full p-6 md:p-4 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-transform duration-300">
-                                    <p className="text-[#D4AF37] font-medium text-sm md:text-xs uppercase tracking-wider mb-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:delay-75">{speaker.role}</p>
-                                    <h3 className="text-xl md:text-lg font-bold text-white leading-tight">{speaker.name}</h3>
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#4a0013] via-[#800020]/40 to-transparent opacity-80 transition-opacity duration-300" />
+
+                            {/* Border Glow on Hover */}
+                            <div className="absolute inset-0 border-2 border-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none" />
+
+                            {/* Content */}
+                            <div className="absolute bottom-0 left-0 w-full p-8 transform transition-transform duration-300">
+                                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <p className="text-[#FFD700] font-bold tracking-widest text-xs uppercase mb-2 drop-shadow-md">
+                                        {speaker.role}
+                                    </p>
+                                    <h3 className="text-3xl font-bold text-white mb-3 drop-shadow-lg leading-tight">
+                                        {speaker.name}
+                                    </h3>
+                                    <div className="h-[2px] w-0 group-hover:w-full bg-[#D4AF37] transition-all duration-500 ease-out mb-4 opacity-50"></div>
+                                    <p className="text-white/90 text-sm font-medium line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                        <span className="text-[#FFD700] mr-2">✦</span> {speaker.topic}
+                                    </p>
                                 </div>
                             </div>
-                            <div className="p-5 md:p-4 bg-white relative h-full">
-                                <div className="absolute top-0 right-4 -mt-3 w-8 h-8 md:w-6 md:h-6 bg-[#D4AF37] rounded-full flex items-center justify-center shadow-md">
-                                    <svg className="w-4 h-4 md:w-3 md:h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </div>
-                                <p className="text-[#800020] text-sm md:text-xs font-serif italic line-clamp-2 leading-relaxed opacity-90 md:opacity-80">
-                                    "{speaker.topic}"
-                                </p>
-                            </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
@@ -96,60 +121,76 @@ export function SpeakersSection() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedSpeaker(null)}
-                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
                             aria-hidden="true"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            initial={{ opacity: 0, scale: 0.95, y: 40 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="bg-white rounded-3xl overflow-hidden max-w-4xl w-full shadow-2xl relative z-10 flex flex-col md:flex-row"
+                            exit={{ opacity: 0, scale: 0.95, y: 40 }}
+                            className="bg-[#FAF9F6] rounded-[2rem] overflow-hidden max-w-5xl w-full shadow-2xl relative z-10 flex flex-col md:flex-row max-h-[90vh]"
                             role="dialog"
                             aria-modal="true"
-                            aria-labelledby="speaker-name"
                         >
                             <button
                                 onClick={() => setSelectedSpeaker(null)}
-                                className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors z-20"
+                                className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/40 backdrop-blur text-[#800020] md:text-white rounded-full transition-all z-30"
                                 aria-label="Close modal"
                             >
-                                <svg className="w-6 h-6 text-[#800020]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                                <X className="w-6 h-6" />
                             </button>
 
-                            {/* Modal Image */}
-                            <div className="w-full md:w-2/5 h-64 md:h-auto relative">
+                            {/* Modal Image Section */}
+                            <div className="w-full md:w-1/2 relative bg-[#800020]">
+                                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay"></div>
                                 <img
                                     src={selectedSpeaker.image}
                                     alt={selectedSpeaker.name}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-64 md:h-full object-cover opacity-90 mix-blend-normal"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 via-transparent to-transparent md:bg-gradient-to-r" />
-                                <div className="absolute bottom-4 left-4 text-white md:hidden">
-                                    <h3 className="text-2xl font-bold">{selectedSpeaker.name}</h3>
-                                    <p className="text-[#D4AF37] font-medium">{selectedSpeaker.role}</p>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#800020] via-transparent to-transparent md:bg-gradient-to-r" />
+
+                                <div className="absolute bottom-8 left-8 right-8 text-white hidden md:block">
+                                    <Quote className="w-12 h-12 text-[#D4AF37]/40 mb-4 fill-current" />
+                                    <p className="text-xl md:text-2xl font-light italic leading-relaxed text-[#FFE4B5]">
+                                        "{selectedSpeaker.bio.split('.')[0]}."
+                                    </p>
                                 </div>
                             </div>
 
-                            {/* Modal Content */}
-                            <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center bg-white">
-                                <div className="hidden md:block mb-6">
-                                    <h3 id="speaker-name" className="text-4xl font-bold text-[#800020] mb-2">{selectedSpeaker.name}</h3>
-                                    <p className="text-xl text-[#D4AF37] font-medium tracking-wide uppercase">{selectedSpeaker.role}</p>
+                            {/* Modal Content Section */}
+                            <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col bg-white overflow-y-auto custom-scrollbar">
+                                <div className="mb-8">
+                                    <span className="inline-block px-3 py-1 bg-[#800020]/5 text-[#800020] rounded-full text-xs font-bold tracking-wider uppercase mb-3 border border-[#800020]/10">
+                                        Speaker Profile
+                                    </span>
+                                    <h3 className="text-4xl md:text-5xl font-black text-[#2a2a2a] mb-2">
+                                        {selectedSpeaker.name}
+                                    </h3>
+                                    <p className="text-xl text-[#D4AF37] font-medium font-serif italic">
+                                        {selectedSpeaker.role}
+                                    </p>
                                 </div>
 
-                                <div className="space-y-6">
-                                    <div>
-                                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Topic</h4>
-                                        <p className="text-xl text-[#800020] font-serif italic">"{selectedSpeaker.topic}"</p>
+                                <div className="space-y-8">
+                                    <div className="bg-[#FAF9F6] p-6 rounded-2xl border border-gray-100">
+                                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Session Topic</h4>
+                                        <p className="text-2xl text-[#800020] font-bold">
+                                            {selectedSpeaker.topic}
+                                        </p>
                                     </div>
 
                                     <div>
-                                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">About</h4>
-                                        <p className="text-gray-600 leading-relaxed text-lg">
+                                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">About the Voice</h4>
+                                        <p className="text-gray-600 leading-8 text-lg font-light">
                                             {selectedSpeaker.bio}
                                         </p>
+                                    </div>
+
+                                    <div className="pt-6 border-t border-gray-100">
+                                        <button className="text-[#800020] font-bold hover:text-[#D4AF37] transition-colors flex items-center gap-2 group">
+                                            View Session Details <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        </button>
                                     </div>
                                 </div>
                             </div>

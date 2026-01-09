@@ -1,5 +1,19 @@
 export const SPEAKERS_DATA = [
     {
+        image: "/images/speakers/speaker_meditation.jpeg",
+        name: "Dhanya P",
+        role: "Psychologist & Meditation Guide",
+        topic: "Focus, Determination & Self-Understanding",
+        bio: "Drithi is focus, determination or steadfastness. It is also courage to go ahead. Drithi aims to resolve the issues in the Society through a psychological approach. Drithi believes that uplifting oneself can happen by making them understand themselves. Drithi is the light of relief. Drithi is the light of hope."
+    },
+    {
+        image: "/images/speakers/speaker_sound_bath.jpeg",
+        name: "Leanne Ashurst",
+        role: "Sound Healer",
+        topic: "Resilience & Healing Frequencies",
+        bio: "To me resilience is the strength that supports you from within, helping you stay aligned with your values even when circumstances are challenging. Discipline over motivation."
+    },
+    {
         image: "/images/speakers/speaker_psychologist.png",
         name: "Fathima Beevi",
         role: "Comic Artist",
@@ -21,10 +35,32 @@ export const SPEAKERS_DATA = [
         bio: "A dedicated team from the Kerala Police Vanitha Wing, including ASI Rethnamani T.L., ASI Lissy Mathai, and Civil Police Officers Syama and Jancy. They specialize in empowering women through practical self-defence training, situational awareness, and safety education."
     },
     {
-        image: "/images/speakers/speaker_dancer.png",
-        name: "Speaker Name",
-        role: "Performing Artist",
-        topic: "Motion and Emotion",
-        bio: "A professional dancer specializing in movement therapy and expressive arts."
+        image: "/images/speakers/speaker_bracelet.jpeg",
+        name: "Nakshatra P Nair",
+        role: "Creative Facilitator",
+        topic: "Bracelet Making Workshop",
+        bio: "Leading the creative session on bracelet making, fostering connection and friendship through shared crafting and creativity."
+    },
+
+    {
+        image: "/images/speakers/speaker_clay.jpeg",
+        name: "Karthika Harilal",
+        role: "Artist & Sculptor",
+        topic: "Clay Modelling",
+        bio: "Guiding you through the tactile art of clay modelling, allowing you to shape your thoughts and emotions into tangible forms."
+    },
+    {
+        image: "/images/speakers/speaker_dance.jpeg",
+        name: "Gayathri Pramod",
+        role: "Dance Therapist",
+        topic: "Dance Therapy",
+        bio: "Dhriti is a beautiful initiative and a powerful reminder of resilience - the strength to rise, transform, and keep moving, just like the butterfly. This Valentine’s Day, as we celebrate love, let’s begin with the most important one: loving ourselves first."
+    },
+    {
+        image: "/images/speakers/speaker_standup.jpeg",
+        name: "Sreelakshmi Ushadevi",
+        role: "Standup Comedian",
+        topic: "Standup Comedy",
+        bio: "I’ve never been to a festival for the mind, but I know our mind is the anchor of it all. To bring my wit and perform standup in Kerala's first mental health festival at Fort Kochi on the Valentine's day is an honour. All the best to the curators for doing this fabulous initiative"
     }
 ];

@@ -1,6 +1,6 @@
 
 import { motion, useAnimation, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 // Helper to find visible valid landing spots
 const getLandingSpots = () => {
@@ -459,8 +459,11 @@ export function ButterflyBackground({ attractionTarget }: { attractionTarget?: H
                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#800020]/5 rounded-tr-full pointer-events-none" />
 
                         <button
+                            type="button"
                             onClick={() => setShowMascotPopup(false)}
                             className="absolute top-4 right-4 p-2 text-gray-400 hover:text-[#800020] hover:bg-[#800020]/5 rounded-full transition-colors z-20"
+                            title="Close popup"
+                            aria-label="Close popup"
                         >
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                         </button>
@@ -518,6 +521,7 @@ export function ButterflyBackground({ attractionTarget }: { attractionTarget?: H
                             </div>
 
                             <button
+                                type="button"
                                 onClick={() => setShowMascotPopup(false)}
                                 className="mt-4 px-8 py-2.5 bg-[#800020] text-white rounded-full font-medium tracking-wide hover:bg-[#A0153E] transition-all shadow-[0_4px_14px_rgba(128,0,32,0.3)] hover:shadow-[0_6px_20px_rgba(128,0,32,0.4)] active:scale-95 text-sm"
                             >

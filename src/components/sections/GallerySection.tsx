@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function GallerySection() {
     const [selectedItem, setSelectedItem] = useState<{ src: string; alt: string; role?: string } | null>(null);
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
@@ -249,8 +249,11 @@ export function GallerySection() {
 
                             <div className="relative w-full overflow-hidden rounded-[1.8rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-[#800020]/10 bg-white">
                                 <button
+                                    type="button"
                                     onClick={() => setSelectedItem(null)}
                                     className="absolute top-4 right-4 p-2 bg-black/5 hover:bg-[#800020] hover:text-white rounded-full transition-all duration-300 z-20"
+                                    aria-label="Close modal"
+                                    title="Close modal"
                                 >
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
