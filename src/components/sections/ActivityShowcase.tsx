@@ -29,6 +29,20 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        if (selectedActivity || isRegistrationOpen) {
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+        };
+    }, [selectedActivity, isRegistrationOpen]);
+
     const handleLoadMore = () => {
         setVisibleActivitiesCount(prev => Math.min(prev + 4, ACTIVITIES_DATA.length));
     };
