@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/ui/LazyImage";
-import { Sparkles, X, Mic, Info } from "lucide-react";
+import { Sparkles, X, Mic, Info, Calendar } from "lucide-react";
 import { ACTIVITIES_DATA, SURPRISE_REVEAL_DATE } from "@/data/activities";
+import { ScheduleModal } from "@/components/ScheduleModal";
 
 interface ActivityShowcaseProps {
     setSurpriseBoxRef?: (node: HTMLElement | null) => void;
@@ -14,9 +15,19 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
     const [visibleActivitiesCount, setVisibleActivitiesCount] = useState(4);
     const [isSurpriseRevealed, setIsSurpriseRevealed] = useState(false);
     const [isShaking, setIsShaking] = useState(false);
+    const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
     const [selectedActivity, setSelectedActivity] = useState<{ title: string; description: string; image: string; timing: string; instruction: string; speaker?: string; isSurprise?: boolean } | null>(null);
     const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+    const [shouldReturnToSchedule, setShouldReturnToSchedule] = useState(false);
+
+    const handleCloseDetailModal = () => {
+        setSelectedActivity(null);
+        if (shouldReturnToSchedule) {
+            setIsScheduleOpen(true);
+            setShouldReturnToSchedule(false);
+        }
+    };
 
     useEffect(() => {
         const checkReveal = () => {
@@ -30,7 +41,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
     }, []);
 
     useEffect(() => {
-        if (selectedActivity || isRegistrationOpen) {
+        if (selectedActivity || isRegistrationOpen || isScheduleOpen) {
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else {
@@ -41,7 +52,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         };
-    }, [selectedActivity, isRegistrationOpen]);
+    }, [selectedActivity, isRegistrationOpen, isScheduleOpen]);
 
     const handleLoadMore = () => {
         setVisibleActivitiesCount(prev => Math.min(prev + 4, ACTIVITIES_DATA.length));
@@ -72,9 +83,29 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                     <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
                         Experience Dhriti
                     </h2>
-                    <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-2">
+                    <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
                         Immersive activities designed to engage, inspire, and transform
                     </p>
+
+                    <motion.button
+                        whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(128,0,32,0.2)" }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setIsScheduleOpen(true)}
+                        className="group relative inline-flex items-center gap-3 bg-[#800020] text-white px-10 py-5 rounded-full font-bold shadow-xl hover:bg-[#600018] transition-all overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                        <Calendar className="w-5 h-5 text-[#FFD700]" />
+                        <span>View Full Festival Schedule</span>
+                        <motion.div
+                            animate={{
+                                rotate: [0, 15, -15, 0],
+                                y: [0, -2, 2, 0]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                        >
+                            <Sparkles className="w-4 h-4 text-[#FFD700]" />
+                        </motion.div>
+                    </motion.button>
                 </motion.div>
 
                 {/* Scroll Controls */}
@@ -253,7 +284,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setSelectedActivity(null)}
+                            onClick={handleCloseDetailModal}
                             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                             aria-hidden="true"
                         />
@@ -268,7 +299,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                         >
                             <button
                                 type="button"
-                                onClick={() => setSelectedActivity(null)}
+                                onClick={handleCloseDetailModal}
                                 className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors z-20"
                                 aria-label="Close modal"
                             >
@@ -378,6 +409,19 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                     </div>
                 )}
             </AnimatePresence>
+
+            <ScheduleModal
+                isOpen={isScheduleOpen}
+                onOpenChange={setIsScheduleOpen}
+                onSelectActivity={(title) => {
+                    const activity = ACTIVITIES_DATA.find(a => a.title.toLowerCase() === title.toLowerCase());
+                    if (activity) {
+                        setShouldReturnToSchedule(true);
+                        setSelectedActivity(activity);
+                        setIsScheduleOpen(false);
+                    }
+                }}
+            />
         </section>
     );
 }

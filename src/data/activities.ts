@@ -34,15 +34,15 @@ export const ACTIVITIES_DATA = [
         image: "/images/activities/meditation.png"
     },
     {
-        title: "Sign Language Workshop",
+        title: "Sign language",
         description: "Learn the basics of sign language and bridge communication gaps in our inclusive community.",
-        timing: "11:30 AM - 12:00 PM",
+        timing: "3:00 PM - 3:30 PM",
         instruction: "Open to all beginners.",
         speaker: "Anugraha, Sneha, Mintu, Sreddha and Raji",
         image: "/images/activities/sign_language.png"
     },
     {
-        title: "Theatre Workshop on Drug Abuse",
+        title: "Drug Abuse Theatre workshop",
         description: "A specialized theatre workshop focused on raising awareness about drug abuse and its impact, using performance as a tool for education, emotional processing, and social change.",
         timing: "12:00 PM - 12:30 PM",
         instruction: "Open to all. No prior experience required.",
@@ -108,7 +108,7 @@ export const ACTIVITIES_DATA = [
     {
         title: "Theatre Workshop",
         description: "Explore the transformative power of theatre and performance arts in expressing emotions, building confidence, and fostering resilience. Through interactive exercises and creative expression, discover how the stage can be a powerful tool for personal growth and emotional healing.",
-        timing: "4:00 PM - 5:00 PM",
+        timing: "11:30 AM - 12:00 PM",
         instruction: "Wear comfortable clothing. No prior theatre experience required.",
         speaker: "Sojan Rosamma Sam",
         image: "/images/speakers/speaker_theatre.png"
@@ -155,9 +155,9 @@ export const ACTIVITIES_DATA = [
         image: "/images/activities/qpr.png"
     },
     {
-        title: "Inverse Community Cosplay",
+        title: "Cosplay Workshop",
         description: "Step out of character and into understanding through role reversal and empathy games.",
-        timing: "5:00 PM - 6:00 PM",
+        timing: "3:30 PM - 4:00 PM",
         instruction: "Costumes and props available.",
         speaker: "Creative Team",
         image: "/images/activities/cosplay.png"
@@ -171,7 +171,7 @@ export const ACTIVITIES_DATA = [
         image: "/images/activities/wellness_games.png"
     },
     {
-        title: "Empowerment Market Place",
+        title: "ME Market place",
         description: "Support products made by children with disabilities and women from destitute homes.",
         timing: "All Day",
         instruction: "Support by purchasing.",
@@ -179,3 +179,51 @@ export const ACTIVITIES_DATA = [
         image: "/images/activities/market.png"
     }
 ];
+
+export const SCHEDULE_DATA = {
+    workshops: [
+        { time: "10:30 AM - 11:00 AM", title: "Sound Healing" },
+        { time: "11:00 AM - 11:30 AM", title: "Laughter Yoga" },
+        { time: "11:00 AM - 11:30 AM", title: "Art of Pranayam" },
+        { time: "11:30 AM - 12:00 PM", title: "Theatre Workshop" },
+        { time: "12:00 PM - 12:30 PM", title: "Drug Abuse Theatre workshop" },
+        { time: "12:30 PM - 1:00 PM", title: "Self Defense" },
+        { time: "1:00 PM - 2:00 PM", title: "Art Therapy" },
+        { time: "2:00 PM - 2:30 PM", title: "Comic Making" },
+        { time: "2:00 PM - 2:30 PM", title: "Unlearning Survival Mode" },
+        { time: "2:30 PM - 3:00 PM", title: "Clay Modelling" },
+        { time: "2:30 PM - 3:00 PM", title: "Bracelet Making" },
+        { time: "3:00 PM - 4:00 PM", title: "Voice Your Worries" },
+        { time: "3:00 PM - 3:30 PM", title: "Sign language" },
+        { time: "3:30 PM - 4:00 PM", title: "Cosplay Workshop" },
+        { time: "5:00 PM - 5:30 PM", title: "Standup Comedy" },
+        { time: "5:30 PM - 6:30 PM", title: "Dance Therapy" },
+        // { time: "6:30 PM onwards", title: "Percussion Tribe Hands on" },
+        { time: "7:00 PM onwards", title: "Music Concert" }
+    ],
+    allDayWorkshops: [
+        "Mala Making",
+        "Pottery - paid",
+        "Clay and Puppet making",
+        "Box Building",
+        "Coconut Leaf toy making",
+        "Mandala Making",
+        "ME Market place"
+    ],
+    games: [
+        "Stickman to the rescue",
+        "To Roll or Not to Roll",
+        "Choose your Cruise",
+        "Myth Busters",
+        "Unspoken",
+        "Make a wish to the universe",
+        "Snakes and Ladder",
+        "Kindness Bingo",
+        "Treasure Hunt",
+        "Jigsaw Puzzle on Mental Health",
+        "Mood Pebble",
+        "Managing Stress Bingo",
+        "Staapu/ Fun spots",
+        "Empathy Walk"
+    ]
+};
