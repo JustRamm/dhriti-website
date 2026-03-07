@@ -42,7 +42,7 @@ export function Navbar({ onOpenVolunteer }: NavbarProps) {
                             <a href="#home" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Home</a>
                             <a href="#activities" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Activities</a>
                             <a href="#speakers" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Speakers</a>
-                            <a href="#gallery" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Gallery</a>
+                            <a href="#photo-dump" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Gallery</a>
                             <a href="#partnership" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Partners</a>
                             <a href="#contact" className="text-white/90 hover:text-[#D4AF37] transition-colors font-medium">Contact Us</a>
                             <Button
@@ -88,7 +88,7 @@ export function Navbar({ onOpenVolunteer }: NavbarProps) {
                                                     { name: "Home", href: "#home", icon: Home },
                                                     { name: "Activities", href: "#activities", icon: Gamepad2 },
                                                     { name: "Speakers", href: "#speakers", icon: Mic },
-                                                    { name: "Gallery", href: "#gallery", icon: Image },
+                                                    { name: "Gallery", href: "#photo-dump", icon: Image },
                                                     { name: "Partners", href: "#partnership", icon: Handshake },
                                                     { name: "Contact Us", href: "#contact", icon: Mail },
                                                 ].map((item, i) => (

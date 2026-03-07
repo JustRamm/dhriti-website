@@ -11,6 +11,7 @@ import { SpeakersSection } from "@/components/sections/SpeakersSection";
 import { ImpactSection } from "@/components/sections/ImpactSection";
 import { VenueSection } from "@/components/sections/VenueSection";
 import { GallerySection } from "@/components/sections/GallerySection";
+import { PhotoDumpSection } from "@/components/sections/PhotoDumpSection";
 // TODO: Uncomment when real sponsors are available
 // import { PartnershipSection } from "@/components/sections/PartnershipSection";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -61,6 +62,7 @@ function App() {
         <SpeakersSection />
         <VenueSection />
         <GallerySection />
+        <PhotoDumpSection />
         {/* TODO: Uncomment when real sponsors are available */}
         {/* <PartnershipSection /> */}
         <FAQSection />

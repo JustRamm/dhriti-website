@@ -50,55 +50,6 @@ export function GallerySection() {
                     </p>
                 </motion.div>
 
-                {/* Gallery Grid (Horizontal Scroll on Mobile, Grid on Desktop) */}
-                <div
-                    className="max-w-6xl mx-auto flex md:grid md:grid-cols-3 gap-6 md:gap-8 mb-32 overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-auto md:px-0 md:overflow-visible"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                >
-                    {galleryImages.map((img, index) => {
-                        // Apply different parallax speeds for staggered look on desktop
-                        const y = index === 0 ? y1 : index === 1 ? y2 : y3;
-                        // On mobile, we don't want parallax affecting the scroll flow or layout too much, so we disable y translation or keep it subtle
-                        // Ideally, parallax should engage only on md+
-
-                        return (
-                            <motion.div
-                                key={index}
-                                style={{ y: typeof window !== 'undefined' && window.innerWidth >= 768 ? y : 0 }}
-                                className="group relative min-w-[85vw] md:min-w-0 snap-center"
-                            >
-                                <div className="relative overflow-hidden rounded-[2rem] aspect-[4/5] shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_40px_-15px_rgba(128,0,32,0.3)]">
-                                    <div className="absolute inset-0 bg-[#800020]/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                    <LazyImage
-                                        src={img.src}
-                                        alt={img.alt}
-                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                                        wrapperClassName="w-full h-full"
-                                        loading="eager"
-                                    />
-
-                                    {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#2a0e14] via-transparent to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-opacity duration-500" />
-
-                                    {/* Content */}
-                                    <div className="absolute bottom-0 left-0 w-full p-8 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 z-20 text-white">
-                                        <p className="text-[#D4AF37] font-bold text-sm tracking-widest uppercase mb-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 delay-100">
-                                            Inside Look
-                                        </p>
-                                        <h3 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">
-                                            {img.caption}
-                                        </h3>
-                                        <p className="text-white/80 font-light text-sm md:text-base leading-relaxed opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 delay-200">
-                                            {img.desc}
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
-                </div>
-
 
                 {/* Testimonials (Voices) */}
                 <div className="relative max-w-6xl mx-auto">
